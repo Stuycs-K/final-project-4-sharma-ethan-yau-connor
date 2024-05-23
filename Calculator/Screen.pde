@@ -1,2 +1,2 @@
-abstract class Screen {
+public abstract class Screen {
 }
