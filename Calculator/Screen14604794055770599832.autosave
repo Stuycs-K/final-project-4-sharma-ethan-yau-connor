@@ -8,6 +8,6 @@ public class Screen {
     this.name = name;
     this.screenHeight = screenHeight;
     this.screenWidth = screenWidth;
-    //this.pixels = new float[screenWidth][screenHeight];
+    this.pixels = new float[screenWidth][screenHeight];
   }
 }

@@ -5,7 +5,7 @@ Frame frame;
 HashMap<String, Screen> screens;
 int mousexpos;
 int mouseypos;
-String disp;
+String disp = "";
 void setup(){
   textSize(64);
   mouseypos = 64;
@@ -14,7 +14,8 @@ void setup(){
   butt = new NumButton(400,400,20,20,"1");
 }
 void draw(){
-   butt.onClick();
+  butt.onClick();
+   butt.display();
 }
 void mousePressed(){
   press = true;
