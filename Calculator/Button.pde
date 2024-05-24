@@ -9,7 +9,12 @@ public abstract class Button {
   void onClick(){
    if(press && mouseX >= x && mouseY >= y && mouseX <= x + Bwidth && mouseY <= y + Bheight){
      fill(0,1,123);
-     text(name, 500, 600);
+     text(name, mousexpos, mouseypos);
+     mousexpos += 32;
+     if(mousexpos > width){
+     mousexpos=0;
+     mouseypos += 64;
+     }
    }
   }
   void animate(){};

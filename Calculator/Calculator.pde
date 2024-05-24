@@ -5,8 +5,13 @@ Button butt;
 Button[] buttons;
 Frame frame;
 HashMap<String, Screen> screens;
+int mousexpos;
+int mouseypos;
+String disp;
 void setup(){
-  textSize(128);
+  textSize(64);
+  mouseypos = 64;
+  mousexpos = 0;
   size(500, 900, P3D);
   //gui = new LazyGui(this);
   //gui.button("2");
