@@ -1,0 +1,11 @@
+public class NumButton extends Button{
+  public NumButton(int startx, int starty, int wid, int heigh, String name1){
+    x=startx;
+    y=starty;
+    Bheight=heigh;
+    Bwidth=wid;
+    fill(255);
+    rect(startx,starty,wid,heigh,3);
+    name = name1;
+  }
+}

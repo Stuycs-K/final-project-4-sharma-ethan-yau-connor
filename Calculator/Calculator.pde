@@ -1,18 +1,23 @@
 import com.krab.lazy.*;
-
+boolean press;
 LazyGui gui;
-
+Button butt;
 Button[] buttons;
 Frame frame;
 HashMap<String, Screen> screens;
-
 void setup(){
-  size(1000, 800, P3D);
-  gui = new LazyGui(this);
-  if(gui.button("1")){
-    println("it is done");
-}
+  textSize(128);
+  size(500, 900, P3D);
+  //gui = new LazyGui(this);
+  //gui.button("2");
+  butt = new NumButton(400,400,20,20,"1");
 }
 void draw(){
-    background(gui.colorPicker("background").hex);
+   butt.onClick();
+}
+void mousePressed(){
+press = true;
+}
+void mouseReleased(){
+press = false;
 }
