@@ -1,6 +1,4 @@
-import com.krab.lazy.*;
 boolean press;
-LazyGui gui;
 Button butt;
 Button[] buttons;
 Frame frame;
@@ -12,17 +10,15 @@ void setup(){
   textSize(64);
   mouseypos = 64;
   mousexpos = 0;
-  size(500, 900, P3D);
-  //gui = new LazyGui(this);
-  //gui.button("2");
+  size(500, 900);
   butt = new NumButton(400,400,20,20,"1");
 }
 void draw(){
    butt.onClick();
 }
 void mousePressed(){
-press = true;
+  press = true;
 }
 void mouseReleased(){
-press = false;
+  press = false;
 }
