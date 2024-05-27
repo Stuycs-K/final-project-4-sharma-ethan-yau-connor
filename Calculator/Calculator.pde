@@ -1,25 +1,21 @@
-boolean press;
 Button butt;
 Button[] buttons;
 Frame frame;
+Screen screen;
 HashMap<String, Screen> screens;
 int mousexpos;
 int mouseypos;
 String disp = "";
 void setup(){
-  textSize(64);
-  mouseypos = 64;
-  mousexpos = 0;
+  textSize(32);
+  screen = new Screen("default", 300,480);
   size(500, 900);
   butt = new NumButton(400,400,20,20,"1");
 }
 void draw(){
-  butt.onClick();
-   butt.display();
+  butt.display();
 }
-void mousePressed(){
-  press = true;
-}
-void mouseReleased(){
-  press = false;
+
+void mouseClicked(){
+butt.onClick();
 }
