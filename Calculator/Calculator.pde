@@ -3,6 +3,8 @@ Button plus;
 ArrayList<Button> buttons;
 Frame frame;
 Screen screen;
+int screenHeight;
+int screenWidth;
 HashMap<String, Screen> screens;
 int mousexpos;
 int mouseypos;
