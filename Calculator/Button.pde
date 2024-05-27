@@ -9,7 +9,6 @@ public abstract class Button {
   void onClick(){
    if(mouseX >= x && mouseY >= y && mouseX <= x + Bwidth && mouseY <= y + Bheight){
      disp += name;
-     
    }
   }
   void animate(){};
