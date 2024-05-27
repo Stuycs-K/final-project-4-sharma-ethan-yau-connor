@@ -1,4 +1,4 @@
-public class Menu {
+public class Menu extends Screen{
   public Menu(String name) {
     this.name = name;
     this.fontSize = 10;
