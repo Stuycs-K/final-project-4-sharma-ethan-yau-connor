@@ -7,5 +7,8 @@ public class NumButton extends Button{
     fill(255);
     rect(startx,starty,wid,heigh,3);
     name = name1;
+    fill(0);
+    
+    text(name, startx + wid / 3,starty + heigh / 1.2);
   }
 }

@@ -15,6 +15,6 @@ public abstract class Button {
   void animate(){};
   void display(){
     fill(0,1,123);
-    text(disp, 0, 64);
+    text(disp, 16, 30);
   };
 }
