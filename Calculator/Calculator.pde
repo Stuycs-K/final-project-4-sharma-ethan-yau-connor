@@ -1,20 +1,13 @@
 Button butt;
 Button plus;
-ArrayList<Button> buttons;
 Frame frame;
-Screen screen;
-int screenHeight;
-int screenWidth;
-HashMap<String, Screen> screens;
-int mousexpos;
-int mouseypos;
 String disp = "";
-void setup(){
-  textSize(16);
-  size(500, 900);
-  butt = new NumButton(200,800,20,20,"1");
-  plus = new NumButton(400,800,20,20,"+");
-}
+void setup() {
+    Screen newScreen = new Menu("test");
+    String test = "test";
+    newScreen.addLine(test);
+    newScreen.display(20, 100, 20, 50, 20);
+  }
 void draw(){
   butt.display();
 }
