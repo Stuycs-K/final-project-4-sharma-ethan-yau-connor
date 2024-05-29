@@ -20,15 +20,34 @@ public class CalcMath{
   return splitted;
   }
   public float compute(String str){
+    return compute(str,0,str.length());
+  }
+  public float compute(String str, int start, int end){
     ArrayList<String> split = parseinp(str);
     for(char c: basicopers){
-      for(int i = 0; i < split.size(); i++){
+      for(int i = start; i < end; i++){
         if(c == split.get(i).charAt(0)){
            basicOper(split, i);
+           i--;
          }
     }
     }
     return Float.parseFloat(split.get(0));
+  }
+  
+  public void parenthesisCheck(ArrayList<String> split){
+    int p1, p2;
+    for(int i = 0; i < split.size(); i++){
+      if(split.get(i).includes("(")){
+        p1 = i;
+      }
+    }
+    for(int i = split.size()-1; i > 0; i--){
+      if(split.get(i).includes(")")){
+        p2 = i;
+      }
+    }
+    compute(split, p1, p2);
   }
  public float basicOper(ArrayList<String> split, int index){
   float res = perform(split.get(index).charAt(0),Float.parseFloat(split.get(index-1)),Float.parseFloat(split.get(index+1)));
