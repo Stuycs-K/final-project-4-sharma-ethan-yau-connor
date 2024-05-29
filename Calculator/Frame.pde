@@ -27,6 +27,8 @@ class Frame {
     
     newMenu("menu");
     changeScreen("menu");
+    String[] test = {"abc","ABC","..1234565","......a"};
+    addLines(test);
   }
   
   void addScreen(Screen screen) {
@@ -36,6 +38,17 @@ class Frame {
     screens.put(screen.getName(), screen);
   }
   
+  void addLine(String text) {
+    curScreen.addLine(text);
+  }
+  
+  void addLines(ArrayList<String> lines) {
+    curScreen.addLines(lines);
+  }
+  
+  void addLines(String[] lines) {
+    curScreen.addLines(lines);
+  }
   void newMenu(String name) {
     Screen screen = new Menu(name);
     addScreen(screen);

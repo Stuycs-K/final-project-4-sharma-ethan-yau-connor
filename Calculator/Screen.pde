@@ -19,6 +19,12 @@ abstract class Screen {
     }
   }
   
+  void addLines(String[] lines) {
+    for (String line: lines) {
+      text.add(line);
+    }
+  }
+  
   void goUp() {
     if (curLine > 0) curLine--;
   }
@@ -36,9 +42,9 @@ abstract class Screen {
   void display(float minX, float maxX, float minY, float maxY, float strAscent, float padding) {
     int count = 1;
     float curHeight = minY + padding;
-    while (count*strAscent < maxY - minY && (curLine + count - 1) < text.size()-1) {
+    while (count*strAscent < maxY - minY && (curLine + count - 1) <= text.size()-1) {
       fill(0);
-      print(text.get(curLine + count - 1));
+      //print(text.get(curLine + count - 1));
       text(text.get(curLine + count - 1), minX + padding, 
                               curHeight, 
                               maxX - padding, 
