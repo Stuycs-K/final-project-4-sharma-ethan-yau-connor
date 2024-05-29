@@ -5,6 +5,8 @@ class Menu extends Screen{
     this.fontSize = fontSize;
     this.text = new ArrayList<String>();
     this.curLine = 0;
+    curChar = 0;
+    maxCharsPerLine = 5;
   }
   
   Menu(String name) {

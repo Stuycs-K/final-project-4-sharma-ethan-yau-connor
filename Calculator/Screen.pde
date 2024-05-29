@@ -3,6 +3,8 @@ abstract class Screen {
   ArrayList<String> text;
   int fontSize;
   int curLine;
+  int maxCharsPerLine;
+  int curChar;
   
   String getName() {
     return name;
@@ -27,17 +29,19 @@ abstract class Screen {
   
   void goUp() {
     if (curLine > 0) curLine--;
+    curChar = 0;
   }
   
   void goDown() {
     if (curLine < text.size()-1) curLine++;
+    curChar = 0;
   }
   void goUp(int lines) {
     curLine -= lines;
     if (curLine < 0) {
       curLine = 0;
     }
-    
+    curChar = 0;
   }
   void display(float minX, float maxX, float minY, float maxY, float strAscent, float padding) {
     int count = 1;
@@ -45,10 +49,12 @@ abstract class Screen {
     while (count*strAscent < maxY - minY && (curLine + count - 1) <= text.size()-1) {
       fill(0);
       //print(text.get(curLine + count - 1));
-      text(text.get(curLine + count - 1), minX + padding, 
-                              curHeight, 
-                              maxX - padding, 
-                              curHeight + 2*strAscent);
+      String line = text.get(curLine + count - 1);
+      if (line.length() >= maxCharsPerLine) {
+        line = line.substring(curChar, curChar + maxCharsPerLine);
+      }
+
+      text(line, minX + padding, curHeight, maxX - padding, curHeight + 2*strAscent);
       curHeight += padding + strAscent;
       fill(255);
       count++;
