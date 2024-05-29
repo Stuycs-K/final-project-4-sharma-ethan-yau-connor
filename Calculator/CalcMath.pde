@@ -1,6 +1,6 @@
 
 public class CalcMath{
-  char[] basicopers = {'+', '-', '*', '/', '%', '^'};
+  char[] basicopers = {'^', '*', '/', '%', '+', '-'};
   public CalcMath(){
   }
   public ArrayList<String> parseinp(String str){
@@ -16,21 +16,27 @@ public class CalcMath{
     }
   }
   splitted.add(str.substring(n,str.length()));
+  println(splitted);
   return splitted;
   }
   public float compute(String str){
     ArrayList<String> split = parseinp(str);
-    for(int i = 0; i < split.size(); i++){
-      for(char c: basicopers){
-         if(c == split.get(i).charAt(0)){
-           return basicOper(split, i);
+    for(char c: basicopers){
+      for(int i = 0; i < split.size(); i++){
+        if(c == split.get(i).charAt(0)){
+           basicOper(split, i);
          }
-      }
     }
-    return 0;
+    }
+    return Float.parseFloat(split.get(0));
   }
  public float basicOper(ArrayList<String> split, int index){
-  return(perform(split.get(index).charAt(0),Float.parseFloat(split.get(index-1)),Float.parseFloat(split.get(index+1))));
+  float res = perform(split.get(index).charAt(0),Float.parseFloat(split.get(index-1)),Float.parseFloat(split.get(index+1)));
+  split.set(index-1,"" + res);
+  split.remove(index);
+  split.remove(index);
+  println(split);
+  return res;
  }
  private float perform(char oper, float a, float b){
  if(oper == '+'){
