@@ -15,7 +15,7 @@ void setup(){
   butt = new NumButton(200,800,20,20,"1");
   plus = new NumButton(400,800,20,20,"+");
   CalcMath a = new CalcMath();
-  print(a.basicOper("2.1+21"));
+  print(a.compute("2.1+21"));
 }
 void draw(){
   butt.display();
