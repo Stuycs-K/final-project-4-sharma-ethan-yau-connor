@@ -13,6 +13,12 @@ public abstract class Screen {
     curLine++;
   }
   
+  public void addLines(ArrayList<String> lines) {
+    for (String line: lines) {
+      text.add(line);
+    }
+  }
+  
   public void goUp() {
     if (curLine > 0) curLine--;
   }
