@@ -6,7 +6,10 @@ void setup() {
     Screen newScreen = new Menu("test");
     String test = "test";
     newScreen.addLine(test);
-    newScreen.display(20, 100, 20, 50, 20);
+    Frame frame = new Frame(20, 200, 20, 200);
+    frame.addScreen(newScreen);
+    frame.changeScreen("test");
+    frame.display();
   }
 void draw(){
   butt.display();

@@ -9,11 +9,15 @@ public class Frame {
   PFont font;
   float strAscent;
   
-  public Frame() {
+  public Frame(float screenMinX, float screenMinY, float screenMaxX, float screenMaxY) {
     this.buttons = new ArrayList<Button>();
     this.screens = new HashMap<String, Screen>();
     this.font = createFont("Monospaced", 64);
     this.strAscent = textAscent();
+    this.screenMinX = screenMinX;
+    this.screenMinY = screenMinY;
+    this.screenMaxX = screenMaxX;
+    this.screenMaxY = screenMaxY;
   }
   
   public void addScreen(Screen screen) {
