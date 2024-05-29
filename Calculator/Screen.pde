@@ -28,7 +28,7 @@ public abstract class Screen {
     int count = 1;
     float curHeight = minY + padding;
     while (count*strAscent < maxY - minY && (curLine + count - 1) < text.size()) {
-      fill(0, 408, 612);
+      fill(0);
       print(text.get(curLine + count - 1));
       text(text.get(curLine + count - 1), minX + padding, 
                               curHeight, 
