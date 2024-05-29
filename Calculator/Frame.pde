@@ -8,16 +8,22 @@ public class Frame {
   float screenMaxY;
   PFont font;
   float strAscent;
+  float strDescent;
+  float strHeight;
+  float padding;
   
   public Frame(float screenMinX, float screenMinY, float screenMaxX, float screenMaxY) {
     this.buttons = new ArrayList<Button>();
     this.screens = new HashMap<String, Screen>();
-    this.font = createFont("Monospaced", 64);
+    this.font = createFont("Monospaced", 16);
     this.strAscent = textAscent();
+    this.strDescent = textDescent();
+    this.strHeight = strAscent + strDescent;
     this.screenMinX = screenMinX;
     this.screenMinY = screenMinY;
     this.screenMaxX = screenMaxX;
     this.screenMaxY = screenMaxY;
+    this.padding = 10;
   }
   
   public void addScreen(Screen screen) {
@@ -33,7 +39,9 @@ public class Frame {
   }
   
   public void display() {
-    curScreen.display(screenMinX, screenMaxX, screenMinY, screenMaxY, strAscent);
+    textFont(font);
+    rect(screenMinX, screenMinY, screenMaxX, screenMaxY);
+    curScreen.display(screenMinX, screenMaxX, screenMinY, screenMaxY, strHeight, padding);
   }
   
   
