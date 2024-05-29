@@ -1,39 +1,42 @@
-public abstract class Screen {
+abstract class Screen {
   String name;
   ArrayList<String> text;
   int fontSize;
   int curLine;
   
-  public String getName() {
+  String getName() {
     return name;
   }
   
-  public void addLine(String line){
+  void addLine(String line){
     text.add(line);
     curLine++;
   }
   
-  public void addLines(ArrayList<String> lines) {
+  void addLines(ArrayList<String> lines) {
     for (String line: lines) {
       text.add(line);
     }
   }
   
-  public void goUp() {
+  void goUp() {
     if (curLine > 0) curLine--;
   }
   
-  public void goUp(int lines) {
+  void goDown() {
+    if (curLine < text.size()-1) curLine++;
+  }
+  void goUp(int lines) {
     curLine -= lines;
     if (curLine < 0) {
       curLine = 0;
     }
     
   }
-  public void display(float minX, float maxX, float minY, float maxY, float strAscent, float padding) {
+  void display(float minX, float maxX, float minY, float maxY, float strAscent, float padding) {
     int count = 1;
     float curHeight = minY + padding;
-    while (count*strAscent < maxY - minY && (curLine + count - 1) < text.size()) {
+    while (count*strAscent < maxY - minY && (curLine + count - 1) < text.size()-1) {
       fill(0);
       print(text.get(curLine + count - 1));
       text(text.get(curLine + count - 1), minX + padding, 

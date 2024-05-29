@@ -1,5 +1,5 @@
-public class NumButton extends Button{
-  public NumButton(int startx, int starty, int wid, int heigh, String name1){
+class NumButton extends Button{
+  NumButton(int startx, int starty, int wid, int heigh, String name1){
     x=startx;
     y=starty;
     Bheight=heigh;

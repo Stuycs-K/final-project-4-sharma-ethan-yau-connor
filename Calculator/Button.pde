@@ -1,4 +1,4 @@
-public abstract class Button {
+abstract class Button {
   int Bwidth;
   int Bheight;
   int x;
