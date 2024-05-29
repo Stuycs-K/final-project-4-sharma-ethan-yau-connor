@@ -14,6 +14,8 @@ void setup(){
   size(500, 900);
   butt = new NumButton(200,800,20,20,"1");
   plus = new NumButton(400,800,20,20,"+");
+  CalcMath a = new CalcMath();
+  print(a.basicOper("2*2"));
 }
 void draw(){
   butt.display();
