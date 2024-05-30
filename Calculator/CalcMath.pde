@@ -24,6 +24,10 @@ public class CalcMath{
   }
   public float compute(String str, int start, int end){
     ArrayList<String> split = parseinp(str);
+    return compute(str, start, end, split);
+  }
+  public float compute(String str, int start, int end, ArrayList<String> split){
+    parenthesisCheck(split, str);
     for(char c: basicopers){
       for(int i = start; i < end; i++){
         if(c == split.get(i).charAt(0)){
@@ -35,19 +39,26 @@ public class CalcMath{
     return Float.parseFloat(split.get(0));
   }
   
-  public void parenthesisCheck(ArrayList<String> split){
-    int p1, p2;
+  public void parenthesisCheck(ArrayList<String> split, String str){
+    int k = 0;
+    int p1=0, p2=split.size();
     for(int i = 0; i < split.size(); i++){
-      if(split.get(i).includes("(")){
+      if(split.get(i).contains("(")){
         p1 = i;
+        k++;
+        split.set(i, split.get(i).substring(1,split.get(i).length()));
       }
     }
     for(int i = split.size()-1; i > 0; i--){
-      if(split.get(i).includes(")")){
+      if(split.get(i).contains(")")){
         p2 = i;
+        k++;
+        split.set(i, split.get(i).substring(0,split.get(i).length()-1));
       }
     }
-    compute(split, p1, p2);
+    if(k==2){
+      compute(str, p1, p2, split);
+    }
   }
  public float basicOper(ArrayList<String> split, int index){
   float res = perform(split.get(index).charAt(0),Float.parseFloat(split.get(index-1)),Float.parseFloat(split.get(index+1)));
