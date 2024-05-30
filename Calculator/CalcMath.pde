@@ -24,41 +24,50 @@ public class CalcMath{
   }
   public float compute(String str, int start, int end){
     ArrayList<String> split = parseinp(str);
-    return compute(str, start, end, split);
+    if(end > split.size()-1){
+       return compute(start, split.size(), split);
+    }
+    return compute(start, end, split);
   }
-  public float compute(String str, int start, int end, ArrayList<String> split){
-    parenthesisCheck(split, str);
+  public float compute(int start, int end, ArrayList<String> split){
+    parenthesisCheck(start, end, split);
     for(char c: basicopers){
       for(int i = start; i < end; i++){
         if(c == split.get(i).charAt(0)){
            basicOper(split, i);
            i--;
          }
-    }
+      }
     }
     return Float.parseFloat(split.get(0));
   }
   
-  public void parenthesisCheck(ArrayList<String> split, String str){
-    int k = 0;
-    int p1=0, p2=split.size();
-    for(int i = 0; i < split.size(); i++){
+  public void parenthesisCheck(int start, int end, ArrayList<String> split){
+    ArrayList<Integer> opens = new ArrayList<Integer>();
+    ArrayList<Integer> closed = new ArrayList<Integer>();
+    print(end);
+    for(int i = start; i < end; i++){
       if(split.get(i).contains("(")){
-        p1 = i;
-        k++;
-        split.set(i, split.get(i).substring(1,split.get(i).length()));
+        opens.add(Integer.valueOf(i));
       }
-    }
-    for(int i = split.size()-1; i > 0; i--){
       if(split.get(i).contains(")")){
-        p2 = i;
-        k++;
-        split.set(i, split.get(i).substring(0,split.get(i).length()-1));
+        closed.add(Integer.valueOf(i));
       }
     }
-    if(k==2){
-      compute(str, p1, p2, split);
+   parenthesisEval(opens, closed, split);
+  }
+  public void parenthesisEval(ArrayList<Integer> opens, ArrayList<Integer> closed, ArrayList<String> split){
+  // Assume length of opens, closed is the same (otherwise error)
+  int size = opens.size();
+  if(size > 0){
+    for(int i = 0; i < size; i++){
+      int open = opens.get(i);
+      int close = closed.get(size - i - 1);
+      split.set(open, split.get(open).substring(1,split.get(open).length()));
+      split.set(close, split.get(close).substring(0,split.get(open).length()-1));
+      compute(open, close,split);
     }
+  }
   }
  public float basicOper(ArrayList<String> split, int index){
   float res = perform(split.get(index).charAt(0),Float.parseFloat(split.get(index-1)),Float.parseFloat(split.get(index+1)));
