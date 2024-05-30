@@ -11,14 +11,20 @@ class Frame {
   float strDescent;
   float strHeight;
   float padding;
+  int maxCharsPerLine;
   
   Frame(float screenMinX, float screenMinY, float screenHeight) {
     buttons = new ArrayList<Button>();
     screens = new HashMap<String, Screen>();
-    font = createFont("Monospaced", 16);
+    
+    //stuff for font
+    font = createFont("Monospaced", 32);
+    textFont(font);
     strAscent = textAscent();
     strDescent = textDescent();
     strHeight = strAscent + strDescent;
+    maxCharsPerLine = (int) Math.floor((width - 2*screenMinX)/textWidth("a"));
+    
     this.screenMinX = screenMinX;
     this.screenMinY = screenMinY;
     screenMaxX = width - screenMinX;
@@ -27,7 +33,7 @@ class Frame {
     
     newMenu("menu");
     changeScreen("menu");
-    String[] test = {"abc","ABC","..1234565","......a"};
+    String[] test = {"abc","ABC","..1234565","......aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab"};
     addLines(test);
   }
   
@@ -50,7 +56,7 @@ class Frame {
     curScreen.addLines(lines);
   }
   void newMenu(String name) {
-    Screen screen = new Menu(name);
+    Screen screen = new Menu(name, maxCharsPerLine);
     addScreen(screen);
   }
   
