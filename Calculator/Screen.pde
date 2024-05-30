@@ -77,9 +77,11 @@ abstract class Screen {
       //print(text.get(topLine + count - 1));
       String line = text.get(topLine + count - 1);
       
+      boolean rightJustify = false;
       if (line.equals("TAG")) {
-        
+        rightJustify = true;
       }
+      
       if (line.length() >= maxCharsPerLine) {
         line = line.substring(curChar, curChar + maxCharsPerLine);
         textSize(smallFontSize);
@@ -94,7 +96,7 @@ abstract class Screen {
       leftJustify(highlight, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight, padding, strHeight);
       
       curHeight += padding + strHeight;
-      
+      rightJustify = false;
       highlight = false;
       fill(255);
       count++;
