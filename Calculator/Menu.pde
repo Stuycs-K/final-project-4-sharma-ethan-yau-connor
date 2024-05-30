@@ -1,6 +1,6 @@
-class Menu extends Screen{
+class MainScreen extends Screen{
   
-  Menu(String name, int maxCharsPerLine, int maxLines) {
+  MainScreen(String name, int maxCharsPerLine, int maxLines) {
     this.name = name;
     this.text = new ArrayList<String>();
     this.topLine = 0;

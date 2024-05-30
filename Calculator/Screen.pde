@@ -8,6 +8,7 @@ abstract class Screen {
   int fontSize;
   int smallFontSize;
   int maxLines;
+  String TAG = "tag";
   
   String getName() {
     return name;
@@ -57,9 +58,16 @@ abstract class Screen {
   void highlightCurLine(float textWidth, float x, float y, float strHeight, float padding) {
     fill(20, 20, 100, 160);
     noStroke();
-    rect(x-5, y-5, x + textWidth+5, y + strHeight+5);
+    rect(x-2, y-2, x + textWidth + 2, y + strHeight + 2);
     fill(0);
     stroke(0);
+  }
+  
+  void leftJustify(boolean highlight, String text, float minX, float minY, float maxX, float maxY, float padding, float strHeight) {
+    if (highlight) {
+      highlightCurLine(textWidth(text), minX, minY, strHeight, textWidth(text));
+    }
+    text(text, minX, minY, maxX, maxY);
   }
   void display(float minX, float maxX, float minY, float maxY, float strHeight, float padding) {
     int count = 1;
@@ -68,6 +76,10 @@ abstract class Screen {
       fill(0);
       //print(text.get(topLine + count - 1));
       String line = text.get(topLine + count - 1);
+      
+      if (line.equals("TAG")) {
+        
+      }
       if (line.length() >= maxCharsPerLine) {
         line = line.substring(curChar, curChar + maxCharsPerLine);
         textSize(smallFontSize);
@@ -75,11 +87,15 @@ abstract class Screen {
         textSize(fontSize);
       }
       
+      boolean highlight = false;
       // highlight selected line
-      if (topLine + count - 1 == curLine) highlightCurLine(textWidth(line), minX + padding, curHeight, strHeight, textWidth(line));
+      if (topLine + count - 1 == curLine) highlight = true; 
       
-      text(line, minX + padding, curHeight, maxX - padding, curHeight + strHeight);
+      leftJustify(highlight, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight, padding, strHeight);
+      
       curHeight += padding + strHeight;
+      
+      highlight = false;
       fill(255);
       count++;
     }
