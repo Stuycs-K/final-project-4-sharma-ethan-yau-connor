@@ -10,6 +10,112 @@ class MainScreen extends Screen{
     smallFontSize = 12;
     fontSize = 32;
     this.maxLines = maxLines;
+    this.newLine = "";
+  }
+  
+  void goUp() {
+    if (curLine > 0) curLine--;
+    if (text.get(topLine-1).equals(TAG)) {topLine--;}
+    if (curLine < topLine) topLine = curLine;
+    curChar = 0;
+    println(curLine + " " + topLine);
+  }
+  
+  void goDown() {
+    if (curLine < text.size()) curLine++;
+    if (curLine < text.size() && text.get(curLine).equals(TAG)) curLine++;
+    curChar = 0;
+    if (text.get(topLine).equals(TAG)) {
+      topLine++;
+      curLine++;
+    }
+    if (curLine > topLine + maxLines - 1) topLine++;
+    println(curLine + " " + topLine);
+  }
+  
+  void highlightCurLine(float textWidth, float x, float y, float strHeight, float padding) {
+    fill(20, 20, 100, 160);
+    noStroke();
+    rect(x-2, y-2, x + textWidth + 2, y + strHeight + 2);
+    fill(0);
+    stroke(0);
+  }
+  
+  void leftJustify(boolean highlight, String text, float minX, float minY, float maxX, float maxY, float strHeight) {
+    if (highlight) {
+      highlightCurLine(textWidth(text), minX, minY, strHeight, textWidth(text));
+    }
+    text(text, minX, minY, maxX, maxY);
+  }
+  
+  void rightJustify(boolean highlight, String text, float minX, float minY, float maxX, float maxY, float strHeight) {
+    minX = maxX - textWidth(text) - 5;
+    
+    //print("minX: " + minX + " maxX: " + maxX);
+    if (highlight) {
+      highlightCurLine(textWidth(text), minX, minY, strHeight, textWidth(text));
+    }
+    text(text, minX, minY, maxX, maxY);
+  }
+  
+  void dividingLine(float minX, float maxX, float y) {
+    textSize(smallFontSize);
+    float w = textWidth(".");
+    int numChars = (int) Math.floor((maxX - minX)/w);
+    
+    String line = "";
+    for (int i = 0; i < numChars; i++) {
+      line += ".";
+    }
+    
+    text(line, minX, y + 2);
+    textSize(fontSize);
+  }
+  void display(float minX, float maxX, float minY, float maxY, float strHeight, float padding) {
+    int count = 1;
+    float curHeight = minY + padding;
+    int tags = 0;
+    while (count < maxLines + tags && (topLine + count - 1) <= text.size()-1) {
+      //println(count + " " + maxLines);
+      fill(0);
+      //print(text.get(topLine + count - 1));
+      String line = text.get(topLine + count - 1);
+      
+      boolean rightJustify = false;
+      if (line.equals(TAG)) {
+        rightJustify = true;
+        count++;
+        tags++;
+        line = text.get(topLine + count - 1);
+      }
+      
+      if (line.length() >= maxCharsPerLine) {
+        line = line.substring(curChar, curChar + maxCharsPerLine);
+        textSize(smallFontSize);
+        text("▶", maxX - textWidth("▶") - padding, curHeight + strHeight-10);
+        textSize(fontSize);
+      }
+      
+      boolean highlight = false;
+      // highlight selected line
+      println(topLine + " " + count + " " + curLine + " ");
+      if (topLine + count - 1 == curLine) highlight = true; 
+      
+      if (rightJustify) {
+        rightJustify(highlight, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight, strHeight);
+        //print("rightJustify");
+        dividingLine(minX + padding, maxX - padding, curHeight + strHeight + 3);
+      } else {
+        leftJustify(highlight, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight, strHeight);
+      }
+      
+      
+      curHeight += padding + strHeight;
+      rightJustify = false;
+      highlight = false;
+      fill(255);
+      count++;
+    }
   }
   
 }
