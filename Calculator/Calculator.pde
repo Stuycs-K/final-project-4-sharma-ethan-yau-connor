@@ -1,6 +1,5 @@
 Button butt;
 Button plus;
-ArrayList<Button> buttons;
 Frame frame;
 Screen screen;
 int screenHeight;
@@ -20,11 +19,38 @@ void setup(){
   frame = new Frame(20, 20, 300);
 }
 void draw(){
-  butt.display();
   frame.display();
 }
 
 void mouseClicked(){
-butt.onClick();
-plus.onClick();
+  for (Button b : frame.buttons) {
+    b.onClick();
+  }
+}
+
+void keyPressed() {
+  println(keyCode);
+  if (key == CODED) {
+    if (keyCode == UP) {
+      frame.goUp();
+    } else if (keyCode == DOWN) {
+      frame.goDown();
+    } else if (keyCode == LEFT) {
+      frame.goLeft();
+    } else if (keyCode == RIGHT) {
+      frame.goRight();
+    }
+  }
+  
+  if (key == 'a') {
+    frame.updateNewLine('a');
+  }
+  if (key == 'b') {
+    frame.updateNewLine('b');
+  }
+  
+  if (key == 'c') {
+    print("enter");
+    frame.submitNewLine();
+  }
 }

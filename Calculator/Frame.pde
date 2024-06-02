@@ -11,6 +11,9 @@ class Frame {
   float strDescent;
   float strHeight;
   float padding;
+  float buttonHeight;
+  float buttonWidth;
+  float buttonFont;
   int maxCharsPerLine;
   
   Frame(float screenMinX, float screenMinY, float screenHeight) {
@@ -29,12 +32,18 @@ class Frame {
     this.screenMinY = screenMinY;
     screenMaxX = width - screenMinX;
     screenMaxY = screenMinY + screenHeight;
-
+    buttonHeight = 25;
+    buttonWidth = 25;
     
     newMainScreen("main");
     changeScreen("main");
     String[] test = {"abc","tagABC","..1234565","tagabcdefghijklmnopqrstuvwxyz", "a", "tagab", "abc", "abcd", "123"};
     addLines(test);
+    
+    buttons.add(new NavButton(buttonHeight, buttonWidth,  10, screenMaxY + 100, "←"));
+    buttons.add(new NavButton(buttonHeight, buttonWidth,  60, screenMaxY + 40, "↑"));
+    buttons.add(new NavButton(buttonHeight, buttonWidth,  60, screenMaxY + 160, "↓"));
+    buttons.add(new NavButton(buttonHeight, buttonWidth,  110, screenMaxY +100, "→"));
   }
   
   void addScreen(Screen screen) {
@@ -72,6 +81,9 @@ class Frame {
     textFont(font);
     rect(screenMinX, screenMinY, screenMaxX, screenMaxY);
     curScreen.display(screenMinX, screenMaxX, screenMinY, screenMaxY, strHeight, padding);
+    for (Button button : buttons) {
+      button.display();
+    }
   }
   
   void goUp() {

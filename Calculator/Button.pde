@@ -1,19 +1,25 @@
 abstract class Button {
-  int Bwidth;
-  int Bheight;
-  int x;
-  int y;
+  float Bwidth;
+  float Bheight;
+  float x;
+  float y;
   String name;
   Button second;
   Button alpha;
+  boolean clicked = false;
   void onClick(){
    if(mouseX >= x && mouseY >= y && mouseX <= x + Bwidth && mouseY <= y + Bheight){
-     disp += name;
+     operation();
+     println(name);
    }
   }
-  void animate(){};
+  
+  void operation(){}
+  void animate(){}
   void display(){
-    fill(0,1,123);
-    text(disp, 16, 30);
+    fill(255);
+    rect(x, y, x+Bwidth, y+Bheight);
+    fill(0);
+    text(name, x, y + Bheight);
   }
 }
