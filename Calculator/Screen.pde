@@ -8,6 +8,7 @@ abstract class Screen {
   int fontSize;
   int smallFontSize;
   int maxLines;
+  int selectedChar;
   String TAG = "tag";
   String newLine;
   

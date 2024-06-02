@@ -6,7 +6,7 @@ void setup() {
     size(500,750); 
     rectMode(CORNERS);
     frame = new Frame(20, 20, 300);
-    print(frame.strHeight);
+    //print(frame.strHeight);
   }
 void draw(){
   //butt.display();
@@ -33,5 +33,8 @@ void keyPressed() {
   
   if (key == 'a') {
     frame.updateNewLine('a');
+  }
+  if (key == 'b') {
+    frame.updateNewLine('b');
   }
 }

@@ -5,6 +5,7 @@ class MainScreen extends Screen{
     this.text = new ArrayList<String>();
     this.topLine = 0;
     curChar = 0;
+    selectedChar = 0;
     this.maxCharsPerLine = maxCharsPerLine;
     this.curLine = 0;
     smallFontSize = 12;
@@ -28,10 +29,31 @@ class MainScreen extends Screen{
   }
   
   void goLeft() {
+    // for editable line
+    if (curLine == text.size()) {
+      selectedChar = Math.max(0, selectedChar - 1);
+      if (selectedChar == 0) {
+        curChar = Math.max(0, curChar - 1);
+      }
+      return;
+      
+    }
+    //else 
     if (curChar > 0) curChar--;
   }
   
   void goRight() {
+    // for editable line
+    if (curLine == text.size()) {
+      selectedChar = Math.min(selectedChar + 1, maxCharsPerLine);
+      selectedChar = Math.min(selectedChar, newLine.length());
+      if (selectedChar == maxCharsPerLine) {
+        curChar = Math.min(curChar + 1, newLine.length() - maxCharsPerLine);
+      }
+      return;
+    }
+    
+    //else 
     String line = text.get(curLine);
     if (line.indexOf(TAG) == 0) {
       line = line.substring(TAG.length());
@@ -111,10 +133,26 @@ class MainScreen extends Screen{
     textSize(fontSize);
     
   }
+  
+  void addToNewLine(char c) {
+    int charToUpdate = curChar + selectedChar;
+    if (curLine == text.size()) {
+      if (charToUpdate == newLine.length()) {
+        newLine += c;
+      }else newLine = newLine.substring(0, charToUpdate) + c + newLine.substring(charToUpdate+1);
+    }
+      curChar = Math.max(0, newLine.length() - maxCharsPerLine);
+      selectedChar = Math.min(maxCharsPerLine, selectedChar+1);
+      
+      println(selectedChar);
+  }
+  
   void display(float minX, float maxX, float minY, float maxY, float strHeight, float padding) {
     int count = 1;
     float curHeight = minY + padding;
     while (count < maxLines && (topLine + count - 1) <= text.size()-1) {
+      int tempCurChar = curChar;
+      curChar = 0;
       //println(count + " " + maxLines);
       fill(0);
       //print(text.get(topLine + count - 1));
@@ -147,7 +185,7 @@ class MainScreen extends Screen{
       
       boolean highlight = false;
       // highlight selected line
-      println(topLine + " " + count + " " + curLine + " ");
+      //println(topLine + " " + count + " " + curLine + " ");
       if (topLine + count - 1 == curLine) highlight = true; 
       
       if (rightJustify) {
@@ -164,12 +202,39 @@ class MainScreen extends Screen{
       highlight = false;
       fill(255);
       count++;
+      curChar = tempCurChar;
     }
     
-    leftJustify(false, newLine, minX + padding, curHeight, maxX - padding, curHeight + strHeight, strHeight);
+    String line = newLine;
+
+    if (line.length() > maxCharsPerLine) {
+        boolean leftOverFlow = false;
+        boolean rightOverFlow = false;
+        
+        if (line.length() > curChar + maxCharsPerLine) {
+          rightOverFlow = true;
+        }
+        if (curChar > 0) {
+          leftOverFlow = true;
+        }
+        
+        line = line.substring(curChar, curChar + maxCharsPerLine);
+        
+        if (leftOverFlow) {
+          leftOverFlow(minX, padding, curHeight, strHeight);
+        }
+        if (rightOverFlow) {
+          rightOverFlow(maxX, padding, curHeight, strHeight);
+        }
+      }
+    
     if (curLine == text.size()) {
-      blinkBox(minX + padding + textWidth(newLine), curHeight, strHeight);
+      float x;
+      x = minX + padding + Math.min(selectedChar * textWidth("a"),textWidth(line));
+      blinkBox(x, curHeight, strHeight);
     }
+    leftJustify(false, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight, strHeight);
+    
     
   }
   
