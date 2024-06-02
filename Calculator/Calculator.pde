@@ -15,7 +15,7 @@ void setup(){
   butt = new NumButton(200,800,20,20,"1");
   plus = new NumButton(400,800,20,20,"+");
   CalcMath a = new CalcMath();
-  print(a.compute("(4 - 7^2)*6+1*0-8 % 2 - 3"));
+  print(a.compute("(2+(2 % 2))^5+9%4-((4 + 8))"));
 }
 void draw(){
   butt.display();
