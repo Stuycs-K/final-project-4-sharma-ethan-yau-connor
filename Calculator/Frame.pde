@@ -68,6 +68,7 @@ class Frame {
   }
   
   void display() {
+    fill(255);
     textFont(font);
     rect(screenMinX, screenMinY, screenMaxX, screenMaxY);
     curScreen.display(screenMinX, screenMaxX, screenMinY, screenMaxY, strHeight, padding);

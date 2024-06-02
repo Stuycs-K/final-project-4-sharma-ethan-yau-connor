@@ -21,6 +21,7 @@ void setup(){
 }
 void draw(){
   butt.display();
+  frame.display();
 }
 
 void mouseClicked(){
