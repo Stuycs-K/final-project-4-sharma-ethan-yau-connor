@@ -40,6 +40,8 @@ abstract class Screen {
     
   }
   
+  void submitNewLine() {}
+  
   void display(float minX, float maxX, float minY, float maxY, float strHeight, float padding) {}
   void goUp(){}
   void goDown(){}

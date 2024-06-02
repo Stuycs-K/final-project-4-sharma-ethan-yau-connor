@@ -19,6 +19,7 @@ void mouseClicked(){
 }
 
 void keyPressed() {
+  println(keyCode);
   if (key == CODED) {
     if (keyCode == UP) {
       frame.goUp();
@@ -36,5 +37,10 @@ void keyPressed() {
   }
   if (key == 'b') {
     frame.updateNewLine('b');
+  }
+  
+  if (key == 'c') {
+    print("enter");
+    frame.submitNewLine();
   }
 }

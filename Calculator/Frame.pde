@@ -93,4 +93,8 @@ class Frame {
   void updateNewLine(char c) {
     curScreen.addToNewLine(c);
   }
+  
+  void submitNewLine() {
+    curScreen.submitNewLine();
+  }
 }

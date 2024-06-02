@@ -147,6 +147,16 @@ class MainScreen extends Screen{
       println(selectedChar);
   }
   
+  void submitNewLine() {
+    if (curLine == text.size()) {
+      text.add(newLine);
+      goDown();
+      newLine = "";
+      curChar = 0;
+      selectedChar = 0;
+    }
+  }
+  
   void display(float minX, float maxX, float minY, float maxY, float strHeight, float padding) {
     int count = 1;
     float curHeight = minY + padding;
