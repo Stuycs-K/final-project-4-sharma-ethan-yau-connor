@@ -124,7 +124,7 @@ abstract class Screen {
       if (rightJustify) {
         rightJustify(highlight, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight, strHeight);
         //print("rightJustify");
-        dividingLine(minX + padding, maxX - padding, curHeight + strHeight);
+        dividingLine(minX + padding, maxX - padding, curHeight + strHeight + 3);
       } else {
         leftJustify(highlight, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight, strHeight);
       }
