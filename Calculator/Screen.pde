@@ -33,12 +33,14 @@ abstract class Screen {
   
   void goUp() {
     if (curLine > 0) curLine--;
+    if (text.get(curLine).equals(TAG)) curLine--;
     if (curLine < topLine) topLine--;
     curChar = 0;
   }
   
   void goDown() {
     if (curLine < text.size()-1) curLine++;
+    if (text.get(curLine).equals(TAG)) curLine++;
     curChar = 0;
     
     if (curLine > topLine + maxLines - 1) topLine++;
@@ -69,6 +71,16 @@ abstract class Screen {
     }
     text(text, minX, minY, maxX, maxY);
   }
+  
+  void rightJustify(boolean highlight, String text, float minX, float minY, float maxX, float maxY, float padding, float strHeight) {
+    minX = maxX - textWidth(text);
+    
+    //print("minX: " + minX + " maxX: " + maxX);
+    if (highlight) {
+      highlightCurLine(textWidth(text), minX, minY, strHeight, textWidth(text));
+    }
+    text(text, minX, minY, maxX, maxY);
+  }
   void display(float minX, float maxX, float minY, float maxY, float strHeight, float padding) {
     int count = 1;
     float curHeight = minY + padding;
@@ -78,8 +90,10 @@ abstract class Screen {
       String line = text.get(topLine + count - 1);
       
       boolean rightJustify = false;
-      if (line.equals("TAG")) {
+      if (line.equals(TAG)) {
         rightJustify = true;
+        count++;
+        line = text.get(topLine + count - 1);
       }
       
       if (line.length() >= maxCharsPerLine) {
@@ -93,7 +107,13 @@ abstract class Screen {
       // highlight selected line
       if (topLine + count - 1 == curLine) highlight = true; 
       
-      leftJustify(highlight, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight, padding, strHeight);
+      if (rightJustify) {
+        rightJustify(highlight, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight, padding, strHeight);
+        //print("rightJustify");
+      } else {
+        leftJustify(highlight, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight, padding, strHeight);
+      }
+      
       
       curHeight += padding + strHeight;
       rightJustify = false;

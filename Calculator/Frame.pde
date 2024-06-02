@@ -33,7 +33,7 @@ class Frame {
     
     newMainScreen("main");
     changeScreen("main");
-    String[] test = {"abc","tag","ABC","..1234565","......aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab", "a", "ab", "abc", "abcd"};
+    String[] test = {"abc","tag","ABCabcabcabacbacbacbabdsabbasbasbabasbasb","..1234565","......aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab", "a", "ab", "abc", "abcd"};
     addLines(test);
   }
   
