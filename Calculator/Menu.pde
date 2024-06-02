@@ -15,22 +15,16 @@ class MainScreen extends Screen{
   
   void goUp() {
     if (curLine > 0) curLine--;
-    if (text.get(topLine-1).equals(TAG)) {topLine--;}
     if (curLine < topLine) topLine = curLine;
     curChar = 0;
-    println(curLine + " " + topLine);
+    //println(curLine + " " + topLine);
   }
   
   void goDown() {
     if (curLine < text.size()) curLine++;
-    if (curLine < text.size() && text.get(curLine).equals(TAG)) curLine++;
     curChar = 0;
-    if (text.get(topLine).equals(TAG)) {
-      topLine++;
-      curLine++;
-    }
     if (curLine > topLine + maxLines - 1) topLine++;
-    println(curLine + " " + topLine);
+    //println(curLine + " " + topLine);
   }
   
   void highlightCurLine(float textWidth, float x, float y, float strHeight, float padding) {
@@ -71,6 +65,21 @@ class MainScreen extends Screen{
     text(line, minX, y + 2);
     textSize(fontSize);
   }
+  
+  void blinkBox(float minX, float minY, float strHeight) {
+    int speed = 30;
+    float w = textWidth(".");
+    stroke(255);
+    if ((frameCount / speed) % 2 == 0) {
+      fill(0);
+    } else {
+      fill(255);
+    }
+    rect(minX, minY, minX + w, minY + strHeight);
+    
+    fill(255);
+    stroke(0);
+  }
   void display(float minX, float maxX, float minY, float maxY, float strHeight, float padding) {
     int count = 1;
     float curHeight = minY + padding;
@@ -82,11 +91,10 @@ class MainScreen extends Screen{
       String line = text.get(topLine + count - 1);
       
       boolean rightJustify = false;
-      if (line.equals(TAG)) {
+      if (line.indexOf(TAG) == 0) {
         rightJustify = true;
-        count++;
         tags++;
-        line = text.get(topLine + count - 1);
+        line = line.substring(TAG.length());
       }
       
       if (line.length() >= maxCharsPerLine) {
@@ -116,6 +124,11 @@ class MainScreen extends Screen{
       fill(255);
       count++;
     }
+    
+    if (curLine == text.size()) {
+      blinkBox(minX + padding, curHeight, strHeight);
+    }
+    
   }
   
 }
