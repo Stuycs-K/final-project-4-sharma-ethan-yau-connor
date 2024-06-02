@@ -15,5 +15,5 @@ abstract class Button {
   void display(){
     fill(0,1,123);
     text(disp, 16, 30);
-  };
+  }
 }

@@ -32,8 +32,17 @@ abstract class Screen {
     }
   }
   
+  void addToNewLine(char c) {
+    if (curLine == text.size()) {
+      newLine += c;
+    }
+    
+  }
+  
   void display(float minX, float maxX, float minY, float maxY, float strHeight, float padding) {}
   void goUp(){}
   void goDown(){}
-  
+  void goRight(){}
+  void goLeft(){}
+   
 }

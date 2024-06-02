@@ -27,6 +27,18 @@ class MainScreen extends Screen{
     //println(curLine + " " + topLine);
   }
   
+  void goLeft() {
+    if (curChar > 0) curChar--;
+  }
+  
+  void goRight() {
+    String line = text.get(curLine);
+    if (line.indexOf(TAG) == 0) {
+      line = line.substring(TAG.length());
+    }
+    if (curChar + maxCharsPerLine < line.length()) curChar++;
+  }
+  
   void highlightCurLine(float textWidth, float x, float y, float strHeight, float padding) {
     fill(20, 20, 100, 160);
     noStroke();
@@ -36,13 +48,16 @@ class MainScreen extends Screen{
   }
   
   void leftJustify(boolean highlight, String text, float minX, float minY, float maxX, float maxY, float strHeight) {
+    fill(0);
     if (highlight) {
       highlightCurLine(textWidth(text), minX, minY, strHeight, textWidth(text));
     }
     text(text, minX, minY, maxX, maxY);
+    fill(255);
   }
   
   void rightJustify(boolean highlight, String text, float minX, float minY, float maxX, float maxY, float strHeight) {
+    fill(0);
     minX = maxX - textWidth(text) - 5;
     
     //print("minX: " + minX + " maxX: " + maxX);
@@ -50,9 +65,11 @@ class MainScreen extends Screen{
       highlightCurLine(textWidth(text), minX, minY, strHeight, textWidth(text));
     }
     text(text, minX, minY, maxX, maxY);
+    fill(255);
   }
   
   void dividingLine(float minX, float maxX, float y) {
+    fill(0);
     textSize(smallFontSize);
     float w = textWidth(".");
     int numChars = (int) Math.floor((maxX - minX)/w);
@@ -64,6 +81,7 @@ class MainScreen extends Screen{
     
     text(line, minX, y + 2);
     textSize(fontSize);
+    fill(255);
   }
   
   void blinkBox(float minX, float minY, float strHeight) {
@@ -80,6 +98,19 @@ class MainScreen extends Screen{
     fill(255);
     stroke(0);
   }
+  
+  void leftOverFlow(float minX, float padding, float curHeight, float strHeight) {
+    textSize(smallFontSize);
+    text("◀", minX, curHeight + strHeight-10);
+    textSize(fontSize);
+  }
+  
+  void rightOverFlow(float maxX, float padding, float curHeight, float strHeight) {
+    textSize(smallFontSize);
+    text("▶", maxX - textWidth("▶"), curHeight + strHeight-10);
+    textSize(fontSize);
+    
+  }
   void display(float minX, float maxX, float minY, float maxY, float strHeight, float padding) {
     int count = 1;
     float curHeight = minY + padding;
@@ -95,11 +126,23 @@ class MainScreen extends Screen{
         line = line.substring(TAG.length());
       }
       
-      if (line.length() >= maxCharsPerLine) {
+      if (line.length() > maxCharsPerLine) {
+        boolean leftOverFlow = false;
+        boolean rightOverFlow = false;
+        
+        if (line.length() > curChar + maxCharsPerLine) {
+          rightOverFlow = true;
+        }
+        if (curChar > 0) {
+          leftOverFlow = true;
+        }
         line = line.substring(curChar, curChar + maxCharsPerLine);
-        textSize(smallFontSize);
-        text("▶", maxX - textWidth("▶") - padding, curHeight + strHeight-10);
-        textSize(fontSize);
+        if (leftOverFlow) {
+          leftOverFlow(minX, padding, curHeight, strHeight);
+        }
+        if (rightOverFlow) {
+          rightOverFlow(maxX, padding, curHeight, strHeight);
+        }
       }
       
       boolean highlight = false;
@@ -123,8 +166,9 @@ class MainScreen extends Screen{
       count++;
     }
     
+    leftJustify(false, newLine, minX + padding, curHeight, maxX - padding, curHeight + strHeight, strHeight);
     if (curLine == text.size()) {
-      blinkBox(minX + padding, curHeight, strHeight);
+      blinkBox(minX + padding + textWidth(newLine), curHeight, strHeight);
     }
     
   }

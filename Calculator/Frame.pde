@@ -23,16 +23,17 @@ class Frame {
     strAscent = textAscent();
     strDescent = textDescent();
     strHeight = strAscent + strDescent;
-    maxCharsPerLine = (int) Math.floor((width - 2*screenMinX)/textWidth("a"));
+    padding = 10;
+    maxCharsPerLine = (int) Math.floor((width - 2*screenMinX - 2*padding)/textWidth("a"));
     this.screenMinX = screenMinX;
     this.screenMinY = screenMinY;
     screenMaxX = width - screenMinX;
     screenMaxY = screenMinY + screenHeight;
-    padding = 10;
+
     
     newMainScreen("main");
     changeScreen("main");
-    String[] test = {"abc","tagABC","..1234565","tag......aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab", "a", "ab", "abc", "abcd", "123"};
+    String[] test = {"abc","tagABC","..1234565","tagabcdefghijklmnopqrstuvwxyz", "a", "tagab", "abc", "abcd", "123"};
     addLines(test);
   }
   
@@ -80,4 +81,16 @@ class Frame {
     curScreen.goDown();
   }
   
+  void goLeft() {
+    curScreen.goLeft();
+  }
+  
+  void goRight() {
+    curScreen.goRight();
+  }
+  
+  
+  void updateNewLine(char c) {
+    curScreen.addToNewLine(c);
+  }
 }

@@ -24,6 +24,14 @@ void keyPressed() {
       frame.goUp();
     } else if (keyCode == DOWN) {
       frame.goDown();
+    } else if (keyCode == LEFT) {
+      frame.goLeft();
+    } else if (keyCode == RIGHT) {
+      frame.goRight();
     }
+  }
+  
+  if (key == 'a') {
+    frame.updateNewLine('a');
   }
 }
