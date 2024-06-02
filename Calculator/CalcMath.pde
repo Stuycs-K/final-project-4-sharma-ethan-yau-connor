@@ -2,7 +2,7 @@ public class CalcMath{
   char[] basicopers = {'^', '*', '/', '%', '+', '-'};
   ArrayList<Integer> starts = new ArrayList<Integer>();
   ArrayList<Integer> ends = new ArrayList<Integer>();
-  int ind = -1;;
+  int ind = -1;
   public CalcMath(){
   }
   public ArrayList<String> parseinp(String str){
@@ -18,7 +18,7 @@ public class CalcMath{
     }
   }
   splitted.add(str.substring(n,str.length()));
-  println(splitted);
+  //println(splitted);
   return splitted;
   }
   public float compute(String str){
@@ -87,14 +87,14 @@ public class CalcMath{
   public void parenthesisEval(ArrayList<Integer> opens, ArrayList<Integer> closed, ArrayList<String> split){
   // Assume length of opens, closed is the same (otherwise error)
   int size = opens.size();
-  println(opens);
-  println(closed);
+  //println(opens);
+  //println(closed);
   if(size > 0){
       int open = opens.get(0);
       int close = closed.get(0);
       split.set(open, split.get(open).substring(1,split.get(open).length()));
       split.set(close, split.get(close).substring(0,split.get(close).length()-1));
-      println(split);
+      //println(split);
       //print(open);
       //print(close);
       compute(open, close+1,split);
@@ -113,7 +113,7 @@ public class CalcMath{
   split.set(index-1,"" + res);
   split.remove(index);
   split.remove(index);
-  println(split);
+  //println(split);
   return res;
  }
  private float perform(char oper, float a, float b){

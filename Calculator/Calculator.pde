@@ -14,8 +14,8 @@ void setup(){
   size(500, 900);
   butt = new NumButton(200,800,20,20,"1");
   plus = new NumButton(400,800,20,20,"+");
-  CalcMath a = new CalcMath();
-  print(a.compute("(2+(2 % 2))^5+9%4-((4 + 8))"));
+  //CalcMath a = new CalcMath();
+  //print(a.compute("(2+(2 % 2))^5+9%4-((4 + 8))"));
   rectMode(CORNERS);
   frame = new Frame(20, 20, 300);
 }
