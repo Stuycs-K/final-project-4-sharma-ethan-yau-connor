@@ -23,7 +23,7 @@ class MainScreen extends Screen{
   void goDown() {
     if (curLine < text.size()) curLine++;
     curChar = 0;
-    if (curLine > topLine + maxLines - 1) topLine++;
+    if (curLine > topLine + maxLines - 2) topLine++;
     //println(curLine + " " + topLine);
   }
   
@@ -83,8 +83,7 @@ class MainScreen extends Screen{
   void display(float minX, float maxX, float minY, float maxY, float strHeight, float padding) {
     int count = 1;
     float curHeight = minY + padding;
-    int tags = 0;
-    while (count < maxLines + tags && (topLine + count - 1) <= text.size()-1) {
+    while (count < maxLines && (topLine + count - 1) <= text.size()-1) {
       //println(count + " " + maxLines);
       fill(0);
       //print(text.get(topLine + count - 1));
@@ -93,7 +92,6 @@ class MainScreen extends Screen{
       boolean rightJustify = false;
       if (line.indexOf(TAG) == 0) {
         rightJustify = true;
-        tags++;
         line = line.substring(TAG.length());
       }
       

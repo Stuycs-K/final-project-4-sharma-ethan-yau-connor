@@ -32,7 +32,7 @@ class Frame {
     
     newMainScreen("main");
     changeScreen("main");
-    String[] test = {"abc","tagABC","..1234565","......aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab", "a", "ab", "abc", "abcd", "123"};
+    String[] test = {"abc","tagABC","..1234565","tag......aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab", "a", "ab", "abc", "abcd", "123"};
     addLines(test);
   }
   
@@ -55,7 +55,7 @@ class Frame {
     curScreen.addLines(lines);
   }
   void newMainScreen(String name) {
-    int maxLines = (int) Math.floor((screenMaxY - screenMinY) / (strHeight + padding));
+    int maxLines = (int) Math.ceil((screenMaxY - screenMinY) / (strHeight + padding));
     Screen screen = new MainScreen(name, maxCharsPerLine, maxLines);
     addScreen(screen);
     print(maxLines);
