@@ -65,14 +65,14 @@ abstract class Screen {
     stroke(0);
   }
   
-  void leftJustify(boolean highlight, String text, float minX, float minY, float maxX, float maxY, float padding, float strHeight) {
+  void leftJustify(boolean highlight, String text, float minX, float minY, float maxX, float maxY, float strHeight) {
     if (highlight) {
       highlightCurLine(textWidth(text), minX, minY, strHeight, textWidth(text));
     }
     text(text, minX, minY, maxX, maxY);
   }
   
-  void rightJustify(boolean highlight, String text, float minX, float minY, float maxX, float maxY, float padding, float strHeight) {
+  void rightJustify(boolean highlight, String text, float minX, float minY, float maxX, float maxY, float strHeight) {
     minX = maxX - textWidth(text);
     
     //print("minX: " + minX + " maxX: " + maxX);
@@ -80,6 +80,20 @@ abstract class Screen {
       highlightCurLine(textWidth(text), minX, minY, strHeight, textWidth(text));
     }
     text(text, minX, minY, maxX, maxY);
+  }
+  
+  void dividingLine(float minX, float maxX, float y) {
+    textSize(smallFontSize);
+    float w = textWidth(".");
+    int numChars = (int) Math.floor((maxX - minX)/w);
+    
+    String line = "";
+    for (int i = 0; i < numChars; i++) {
+      line += ".";
+    }
+    
+    text(line, minX, y);
+    textSize(fontSize);
   }
   void display(float minX, float maxX, float minY, float maxY, float strHeight, float padding) {
     int count = 1;
@@ -108,10 +122,11 @@ abstract class Screen {
       if (topLine + count - 1 == curLine) highlight = true; 
       
       if (rightJustify) {
-        rightJustify(highlight, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight, padding, strHeight);
+        rightJustify(highlight, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight, strHeight);
         //print("rightJustify");
+        dividingLine(minX + padding, maxX - padding, curHeight + strHeight);
       } else {
-        leftJustify(highlight, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight, padding, strHeight);
+        leftJustify(highlight, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight, strHeight);
       }
       
       

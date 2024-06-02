@@ -24,7 +24,6 @@ class Frame {
     strDescent = textDescent();
     strHeight = strAscent + strDescent;
     maxCharsPerLine = (int) Math.floor((width - 2*screenMinX)/textWidth("a"));
-    
     this.screenMinX = screenMinX;
     this.screenMinY = screenMinY;
     screenMaxX = width - screenMinX;
@@ -33,7 +32,7 @@ class Frame {
     
     newMainScreen("main");
     changeScreen("main");
-    String[] test = {"abc","tag","ABCabcabcabacbacbacbabdsabbasbasbabasbasb","..1234565","......aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab", "a", "ab", "abc", "abcd"};
+    String[] test = {"abc","tag","ABC","..1234565","......aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab", "a", "ab", "abc", "abcd"};
     addLines(test);
   }
   
