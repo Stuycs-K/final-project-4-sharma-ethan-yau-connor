@@ -1,4 +1,4 @@
-public abstract class Button {
+abstract class Button {
   int Bwidth;
   int Bheight;
   int x;
@@ -15,5 +15,5 @@ public abstract class Button {
   void display(){
     fill(0,1,123);
     text(disp, 16, 30);
-  };
+  }
 }
