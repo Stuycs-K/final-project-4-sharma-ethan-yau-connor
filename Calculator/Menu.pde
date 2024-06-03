@@ -45,6 +45,13 @@ class MainScreen extends Screen{
     if (curChar > 0) curChar--;
   }
   
+  void clearHistory() {
+    text = new ArrayList<String>();
+    curLine = 0;
+    curChar = 0;
+    selectedChar = 0;
+    newLine = "";
+  }
   void goRight() {
     // for editable line
     if (curLine == text.size()) {

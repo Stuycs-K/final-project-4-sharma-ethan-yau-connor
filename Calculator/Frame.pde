@@ -44,6 +44,7 @@ class Frame {
     addNumButtons();
     addOpButtons();
     equalsButton();
+    clearButton();
   }
   
   void equalsButton() {
@@ -63,6 +64,10 @@ class Frame {
     buttons.add(new NavButton(buttonHeight, buttonWidth,  110, screenMaxY +100, "→"));
   }
   
+  void clearButton() {
+    buttons.add(new MiscButton(buttonHeight, buttonWidth, 10, screenMaxY + 220, "X"));
+  }
+  
   void addNumButtons() {
     buttons.add(new NumButton(buttonHeight, buttonWidth, 200, screenMaxY + 40, "1"));
     buttons.add(new NumButton(buttonHeight, buttonWidth, 260, screenMaxY + 40, "2"));
@@ -77,6 +82,7 @@ class Frame {
     buttons.add(new NumButton(buttonHeight, buttonWidth, 260, screenMaxY + 220, "("));
     buttons.add(new NumButton(buttonHeight, buttonWidth, 320, screenMaxY + 220, ")"));
     buttons.add(new NumButton(buttonHeight, buttonWidth, 200, screenMaxY + 280, "."));
+    buttons.add(new NumButton(buttonHeight, buttonWidth, 200, screenMaxY + 280, "del"));
     
   }
   void addScreen(Screen screen) {
@@ -84,6 +90,10 @@ class Frame {
       throw new RuntimeException("can't have duplicate screen names");
     }
     screens.put(screen.getName(), screen);
+  }
+  
+  void clearHistory() {
+    curScreen.clearHistory();
   }
   
   void addLine(String text) {
