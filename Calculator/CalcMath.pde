@@ -12,9 +12,19 @@ public class CalcMath{
   for(int i = 0; i < str.length(); i++){
     for(char c : basicOpers){
       if(c == str.charAt(i)){
-      splitted.add(str.substring(n,i));
-      splitted.add(str.substring(i,i+1));
-      n = i+1;
+        if(str.charAt(i) == '-'){
+          if(i != 0 && (str.charAt(i-1) <= '9' && str.charAt(i-1) >= '0'))
+          {
+            splitted.add(str.substring(n,i));
+          splitted.add(str.substring(i,i+1));
+          n = i+1;
+          }
+        }
+        else{
+           splitted.add(str.substring(n,i));
+          splitted.add(str.substring(i,i+1));
+          n = i+1;
+        }
       }
     }
   }
@@ -38,7 +48,7 @@ public class CalcMath{
     if(end > split.size()){
       end = split.size();
     }
-    //println(split);
+    println(split);
     pemdas(split);
     
     return Float.parseFloat(split.get(0));
@@ -132,7 +142,7 @@ public class CalcMath{
   split.set(index-1,"" + res);
   split.remove(index);
   split.remove(index);
-  //println(split);
+  println(split);
   return res;
  }
  private float perform(char oper, float a, float b){
