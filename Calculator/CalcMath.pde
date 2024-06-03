@@ -1,5 +1,6 @@
 public class CalcMath{
-  char[] basicopers = {'^', '*', '/', '%', '+', '-'};
+  char[] basicOpers = {'^', '*', '/', '%', '+', '-'};
+  char[][] opersOrdered = {{'^'}, {'*', '/', '%'}, {'+', '-'}};
   ArrayList<Integer> starts = new ArrayList<Integer>();
   ArrayList<Integer> ends = new ArrayList<Integer>();
   int ind = -1;
@@ -9,7 +10,7 @@ public class CalcMath{
     ArrayList<String> splitted = new ArrayList<String>(); 
    int n=0;
   for(int i = 0; i < str.length(); i++){
-    for(char c : basicopers){
+    for(char c : basicOpers){
       if(c == str.charAt(i)){
       splitted.add(str.substring(n,i));
       splitted.add(str.substring(i,i+1));
@@ -37,20 +38,38 @@ public class CalcMath{
     if(end > split.size()){
       end = split.size();
     }
-    for(char c: basicopers){
-      for(int i = starts.get(ind); i < ends.get(ind); i++){
-        //println(i);
-        if(c == split.get(i).charAt(0) && split.get(i).length() == 1){
-           basicOper(split, i);
-           i--;
-           for(int j = 0; j < ends.size(); j++){
-             ends.set(j,ends.get(j)-2);
-           }      
-         }
-      }
-    }
+    //println(split);
+    pemdas(split);
     
     return Float.parseFloat(split.get(0));
+  }
+  public void pemdas(ArrayList<String> split){
+    int start = starts.get(ind);
+    int end = ends.get(ind);
+    for(char[] b : opersOrdered){
+      for(int i = start; i < end; i++){
+        char c = split.get(i).charAt(0);
+        if(split.get(i).length() == 1){
+            if(contains(b, c)){
+               basicOper(split, i);
+               i--;
+               for(int j = 0; j < ends.size(); j++){
+                 ends.set(j,ends.get(j)-2);
+                 end = ends.get(ind);
+               }
+             }
+        }
+      }
+    }
+    }
+  public boolean contains(char[] arr, char c){
+    boolean isIn = false;
+    for(int j = 0; j < arr.length; j++){
+       if(arr[j] == c){
+         isIn = true;
+       }
+    }
+    return isIn;
   }
   
   public void parenthesisCheck(ArrayList<String> split){
@@ -94,7 +113,7 @@ public class CalcMath{
       int close = closed.get(0);
       split.set(open, split.get(open).substring(1,split.get(open).length()));
       split.set(close, split.get(close).substring(0,split.get(close).length()-1));
-      //println(split);
+      
       //print(open);
       //print(close);
       compute(open, close+1,split);
@@ -127,7 +146,7 @@ public class CalcMath{
  return a * b;
  }
  if(oper == '/'){
- return (float)a / b;
+ return a / b;
  }
  if(oper == '%'){
  return a % b;
