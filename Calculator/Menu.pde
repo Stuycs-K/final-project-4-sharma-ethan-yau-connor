@@ -1,4 +1,5 @@
 class MainScreen extends Screen{
+  CalcMath calc;
   
   MainScreen(String name, int maxCharsPerLine, int maxLines) {
     this.name = name;
@@ -12,6 +13,8 @@ class MainScreen extends Screen{
     fontSize = 32;
     this.maxLines = maxLines;
     this.newLine = "";
+    calc = new CalcMath();
+    
   }
   
   void goUp() {
@@ -115,7 +118,7 @@ class MainScreen extends Screen{
     } else {
       fill(255);
     }
-    rect(minX, minY, minX + w, minY + strHeight);
+    rect(minX, minY - 5, minX + w, minY + strHeight);
     
     fill(255);
     stroke(0);
@@ -136,25 +139,37 @@ class MainScreen extends Screen{
   
   void addToNewLine(char c) {
     int charToUpdate = curChar + selectedChar;
+
     if (curLine == text.size()) {
       if (charToUpdate == newLine.length()) {
         newLine += c;
       }else newLine = newLine.substring(0, charToUpdate) + c + newLine.substring(charToUpdate+1);
-    }
-      curChar = Math.max(0, newLine.length() - maxCharsPerLine);
-      selectedChar = Math.min(maxCharsPerLine, selectedChar+1);
       
-      println(selectedChar);
+
+      
+      selectedChar = Math.min(maxCharsPerLine, selectedChar+1);
+      if (selectedChar == maxCharsPerLine) {
+        curChar = Math.max(0, newLine.length() - maxCharsPerLine);
+      }
+            
+      
+      //println(selectedChar);
+    }
+
   }
   
   void submitNewLine() {
-    if (curLine == text.size()) {
-      text.add(newLine);
-      goDown();
-      newLine = "";
-      curChar = 0;
-      selectedChar = 0;
+    if (curLine != text.size()) {
+      return;
     }
+    text.add(newLine);
+    float result = calc.compute(newLine);
+    text.add("tag" + result);
+    newLine = "";
+    curChar = 0;
+    selectedChar = 0;
+    goDown();
+    goDown();
   }
   
   void display(float minX, float maxX, float minY, float maxY, float strHeight, float padding) {

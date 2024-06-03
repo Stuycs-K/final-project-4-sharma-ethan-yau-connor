@@ -10,7 +10,7 @@ abstract class Button {
   void onClick(){
    if(mouseX >= x && mouseY >= y && mouseX <= x + Bwidth && mouseY <= y + Bheight){
      operation();
-     println(name);
+     //println(name);
    }
   }
   
@@ -18,7 +18,7 @@ abstract class Button {
   void animate(){}
   void display(){
     fill(255);
-    rect(x, y, x+Bwidth, y+Bheight);
+    rect(x, y, x+Bwidth, y+Bheight, 5);
     fill(0);
     text(name, x, y + Bheight);
   }
