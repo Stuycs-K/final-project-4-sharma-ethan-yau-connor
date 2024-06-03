@@ -161,8 +161,6 @@ class MainScreen extends Screen{
     int count = 1;
     float curHeight = minY + padding;
     while (count < maxLines && (topLine + count - 1) <= text.size()-1) {
-      int tempCurChar = curChar;
-      curChar = 0;
       //println(count + " " + maxLines);
       fill(0);
       //print(text.get(topLine + count - 1));
@@ -184,7 +182,11 @@ class MainScreen extends Screen{
         if (curChar > 0) {
           leftOverFlow = true;
         }
-        line = line.substring(curChar, curChar + maxCharsPerLine);
+        int startChar = 0;
+        if (curLine == topLine + count - 1) {
+          startChar = curChar;  
+        }
+        line = line.substring(startChar, startChar + maxCharsPerLine);
         if (leftOverFlow) {
           leftOverFlow(minX, padding, curHeight, strHeight);
         }
@@ -212,7 +214,6 @@ class MainScreen extends Screen{
       highlight = false;
       fill(255);
       count++;
-      curChar = tempCurChar;
     }
     
     String line = newLine;

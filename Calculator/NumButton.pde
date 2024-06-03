@@ -1,5 +1,5 @@
 class NumButton extends Button{
-  NumButton(int startx, int starty, int wid, int heigh, String name1){
+  NumButton(float startx, float starty, float wid, float heigh, String name1){
     x=startx;
     y=starty;
     Bheight=heigh;
