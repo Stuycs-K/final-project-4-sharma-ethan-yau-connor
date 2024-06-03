@@ -82,7 +82,6 @@ class Frame {
     buttons.add(new NumButton(buttonHeight, buttonWidth, 260, screenMaxY + 220, "("));
     buttons.add(new NumButton(buttonHeight, buttonWidth, 320, screenMaxY + 220, ")"));
     buttons.add(new NumButton(buttonHeight, buttonWidth, 200, screenMaxY + 280, "."));
-    buttons.add(new NumButton(buttonHeight, buttonWidth, 200, screenMaxY + 280, "del"));
     
   }
   void addScreen(Screen screen) {
@@ -92,6 +91,9 @@ class Frame {
     screens.put(screen.getName(), screen);
   }
   
+  void delete() {
+    curScreen.delete();
+  }
   void clearHistory() {
     curScreen.clearHistory();
   }

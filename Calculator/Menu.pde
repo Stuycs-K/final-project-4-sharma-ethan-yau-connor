@@ -165,6 +165,18 @@ class MainScreen extends Screen{
 
   }
   
+  void delete() {
+    int charToUpdate = curChar + selectedChar;
+    if (curLine == text.size()) {
+      if (charToUpdate != newLine.length()) {
+        newLine = newLine.substring(0, charToUpdate) + newLine.substring(charToUpdate+1);
+      }
+            
+      
+      //println(selectedChar);
+    }
+  }
+  
   void submitNewLine() {
     if (curLine != text.size()) {
       return;

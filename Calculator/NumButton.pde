@@ -10,9 +10,7 @@ class NumButton extends Button{
   }
   
   void operation() {
-    if (name.equals("del")) {
-      frame.updateNewLine("");
-    }
+    
     frame.updateNewLine(name.charAt(0));
   }
 }
