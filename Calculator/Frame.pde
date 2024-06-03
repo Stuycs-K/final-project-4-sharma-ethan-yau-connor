@@ -32,20 +32,48 @@ class Frame {
     this.screenMinY = screenMinY;
     screenMaxX = width - screenMinX;
     screenMaxY = screenMinY + screenHeight;
-    buttonHeight = 25;
-    buttonWidth = 25;
-    
+    buttonHeight = 35;
+    buttonWidth = 35;
+
     newMainScreen("main");
     changeScreen("main");
-    String[] test = {"abc","tagABC","..1234565","tagabcdefghijklmnopqrstuvwxyz", "a", "tagab", "abc", "abcd", "123"};
+    String[] test = {};
     addLines(test);
     
+    addArrowButtons();
+    addNumButtons();
+    addOpButtons();
+    equalsButton();
+  }
+  
+  void equalsButton() {
+    buttons.add(new MiscButton(buttonHeight, buttonWidth,  400, screenMaxY + 280, "="));
+  }
+  void addOpButtons() {
+    buttons.add(new NumButton(buttonHeight, buttonWidth,  400, screenMaxY + 40, "+"));
+    buttons.add(new NumButton(buttonHeight, buttonWidth,  400, screenMaxY + 100, "-"));
+    buttons.add(new NumButton(buttonHeight, buttonWidth,  400, screenMaxY + 160, "/"));
+    buttons.add(new NumButton(buttonHeight, buttonWidth,  400, screenMaxY + 220, "*"));
+  }
+  void addArrowButtons() {
     buttons.add(new NavButton(buttonHeight, buttonWidth,  10, screenMaxY + 100, "←"));
     buttons.add(new NavButton(buttonHeight, buttonWidth,  60, screenMaxY + 40, "↑"));
     buttons.add(new NavButton(buttonHeight, buttonWidth,  60, screenMaxY + 160, "↓"));
     buttons.add(new NavButton(buttonHeight, buttonWidth,  110, screenMaxY +100, "→"));
   }
   
+  void addNumButtons() {
+    buttons.add(new NumButton(buttonHeight, buttonWidth, 200, screenMaxY + 40, "1"));
+    buttons.add(new NumButton(buttonHeight, buttonWidth, 260, screenMaxY + 40, "2"));
+    buttons.add(new NumButton(buttonHeight, buttonWidth, 320, screenMaxY + 40, "3"));
+    buttons.add(new NumButton(buttonHeight, buttonWidth, 200, screenMaxY + 100, "4"));
+    buttons.add(new NumButton(buttonHeight, buttonWidth, 260, screenMaxY + 100, "5"));
+    buttons.add(new NumButton(buttonHeight, buttonWidth, 320, screenMaxY + 100, "6"));
+    buttons.add(new NumButton(buttonHeight, buttonWidth, 200, screenMaxY + 160, "7"));
+    buttons.add(new NumButton(buttonHeight, buttonWidth, 260, screenMaxY + 160, "8"));
+    buttons.add(new NumButton(buttonHeight, buttonWidth, 320, screenMaxY + 160, "9"));
+    buttons.add(new NumButton(buttonHeight, buttonWidth, 260, screenMaxY + 220, "0"));
+  }
   void addScreen(Screen screen) {
     if (screens.containsKey(screen.getName())) {
       throw new RuntimeException("can't have duplicate screen names");
