@@ -47,14 +47,13 @@ class Frame {
   }
   
   void equalsButton() {
-    buttons.add(new MiscButton(buttonHeight, buttonWidth,  400, screenMaxY + 340, "="));
+    buttons.add(new MiscButton(buttonHeight, buttonWidth,  400, screenMaxY + 280, "="));
   }
   void addOpButtons() {
     buttons.add(new NumButton(buttonHeight, buttonWidth,  400, screenMaxY + 40, "+"));
     buttons.add(new NumButton(buttonHeight, buttonWidth,  400, screenMaxY + 100, "-"));
     buttons.add(new NumButton(buttonHeight, buttonWidth,  400, screenMaxY + 160, "/"));
     buttons.add(new NumButton(buttonHeight, buttonWidth,  400, screenMaxY + 220, "*"));
-    buttons.add(new NumButton(buttonHeight, buttonWidth,  400, screenMaxY + 280, "^"));
   }
   void addArrowButtons() {
     buttons.add(new NavButton(buttonHeight, buttonWidth,  10, screenMaxY + 100, "←"));
