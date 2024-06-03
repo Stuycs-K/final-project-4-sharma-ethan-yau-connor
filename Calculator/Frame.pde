@@ -32,8 +32,8 @@ class Frame {
     this.screenMinY = screenMinY;
     screenMaxX = width - screenMinX;
     screenMaxY = screenMinY + screenHeight;
-    buttonHeight = 10;
-    buttonWidth = 10;
+    buttonHeight = 35;
+    buttonWidth = 35;
 
     newMainScreen("main");
     changeScreen("main");
