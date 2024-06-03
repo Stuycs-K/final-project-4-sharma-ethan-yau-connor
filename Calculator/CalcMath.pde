@@ -127,7 +127,7 @@ public class CalcMath{
  return a * b;
  }
  if(oper == '/'){
- return a / b;
+ return (float)a / b;
  }
  if(oper == '%'){
  return a % b;
