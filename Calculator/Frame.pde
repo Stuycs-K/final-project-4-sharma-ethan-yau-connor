@@ -72,7 +72,10 @@ class Frame {
     buttons.add(new NumButton(buttonHeight, buttonWidth, 200, screenMaxY + 160, "7"));
     buttons.add(new NumButton(buttonHeight, buttonWidth, 260, screenMaxY + 160, "8"));
     buttons.add(new NumButton(buttonHeight, buttonWidth, 320, screenMaxY + 160, "9"));
-    buttons.add(new NumButton(buttonHeight, buttonWidth, 260, screenMaxY + 220, "0"));
+    buttons.add(new NumButton(buttonHeight, buttonWidth, 200, screenMaxY + 220, "0"));
+    buttons.add(new NumButton(buttonHeight, buttonWidth, 260, screenMaxY + 220, "("));
+    buttons.add(new NumButton(buttonHeight, buttonWidth, 320, screenMaxY + 220, ")"));
+    
   }
   void addScreen(Screen screen) {
     if (screens.containsKey(screen.getName())) {

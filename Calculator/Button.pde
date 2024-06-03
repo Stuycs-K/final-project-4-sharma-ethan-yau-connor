@@ -18,8 +18,8 @@ abstract class Button {
   void animate(){}
   void display(){
     fill(255);
-    rect(x, y, x+Bwidth, y+Bheight, 5);
+    rect(x, y-Bheight/2, x+Bwidth/2, y+Bheight/2, 5);
     fill(0);
-    text(name, x, y + Bheight);
+    text(name, x, y);
   }
 }
