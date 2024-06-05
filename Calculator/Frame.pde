@@ -111,7 +111,7 @@ class Frame {
   }
   void newMainScreen(String name) {
     int maxLines = (int) Math.ceil((screenMaxY - screenMinY) / (strHeight + padding));
-    Screen screen = new MainScreen(name, maxCharsPerLine, maxLines);
+    Screen screen = new MainScreen(name, maxCharsPerLine, maxLines, screenMinX, screenMaxX, screenMinY, screenMaxY, strHeight, padding, textWidth("a"));
     addScreen(screen);
     print(maxLines);
   }
@@ -125,7 +125,7 @@ class Frame {
     fill(255);
     textFont(font);
     rect(screenMinX, screenMinY, screenMaxX, screenMaxY);
-    curScreen.display(screenMinX, screenMaxX, screenMinY, screenMaxY, strHeight, padding);
+    curScreen.display();
     for (Button button : buttons) {
       button.display();
     }

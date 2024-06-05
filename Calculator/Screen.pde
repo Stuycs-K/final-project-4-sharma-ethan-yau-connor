@@ -11,6 +11,13 @@ abstract class Screen {
   int selectedChar;
   String TAG = "tag";
   String newLine;
+  float minX;
+  float maxX;
+  float minY;
+  float maxY;
+  float strHeight;
+  float padding;
+  float textWidth;
   
   String getName() {
     return name;
@@ -43,7 +50,7 @@ abstract class Screen {
   void submitNewLine() {}
   void clearHistory() {}
   void delete() {}
-  void display(float minX, float maxX, float minY, float maxY, float strHeight, float padding) {}
+  void display() {}
   void goUp(){}
   void goDown(){}
   void goRight(){}
