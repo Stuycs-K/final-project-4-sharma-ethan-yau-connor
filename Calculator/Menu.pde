@@ -78,15 +78,15 @@ class MainScreen extends Screen{
     if (curChar + maxCharsPerLine < line.length()) curChar++;
   }
   
-  void highlightCurLine(float x, float y) {
+  void highlightCurLine(float x, float y, String line) {
     fill(20, 20, 100, 160);
     noStroke();
-    rect(x-2, y-2, x + textWidth + 2, y + strHeight + 2);
+    rect(x-2, y-2, x + textWidth(line) + 2, y + strHeight + 2);
     fill(0);
     stroke(0);
   }
   
-  void leftJustify(boolean highlight, String text) {
+  void leftJustify(boolean highlight, String text, float curHeight) {
 
     float minX = this.minX + padding;
     float minY = curHeight;
@@ -252,7 +252,7 @@ class MainScreen extends Screen{
         //print("rightJustify");
         dividingLine(minX + padding, maxX - padding, curHeight + strHeight + 3);
       } else {
-        leftJustify(highlight, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight);
+        leftJustify(highlight, line, curHeight);
       }
       
       
@@ -291,7 +291,7 @@ class MainScreen extends Screen{
       x = minX + padding + Math.min(selectedChar * textWidth("a"),textWidth(line));
       blinkBox(x, curHeight, strHeight);
     }
-    leftJustify(false, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight);
+    leftJustify(false, line, curHeight);
     
     
   }
