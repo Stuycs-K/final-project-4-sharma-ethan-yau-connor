@@ -9,8 +9,6 @@ abstract class Screen {
   int smallFontSize;
   int maxLines;
   int selectedChar;
-  String TAG = "tag";
-  String newLine;
   float minX;
   float maxX;
   float minY;
@@ -18,6 +16,7 @@ abstract class Screen {
   float strHeight;
   float padding;
   float textWidth;
+  String newLine;
   
   String getName() {
     return name;
@@ -35,6 +34,7 @@ abstract class Screen {
   }
   
   void addLines(String[] lines) {
+    print("ABCD");
     for (String line: lines) {
       text.add(line);
     }
