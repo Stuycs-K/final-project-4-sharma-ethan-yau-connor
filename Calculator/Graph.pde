@@ -65,6 +65,42 @@ class Graph extends Screen {
     if (y >= minY && y <= maxY) {
       rect(minX, y, maxX, y+1);
     }
+    plotTicks();
+  }
+  
+  void plotTicks() {
+    float tick = gXscl;
+    float x = scaleX(tick);
+    while(x < maxX && 0 > gYmin && 0 < gYmax) {
+      rect(x, scaleY(0) + 5, x+1, scaleY(0) - 4);
+      tick += gXscl;
+      x = scaleX(tick);
+    }
+    
+    tick = -1 * gXscl;
+    x = scaleX(tick);
+    while(x > minX && 0 > gYmin && 0 < gYmax) {
+      rect(x, scaleY(0) + 5, x+1, scaleY(0) - 4);
+      tick -= gXscl;
+      x = scaleX(tick);
+    }
+    
+    tick = gYscl;
+    float y = scaleY(tick);
+    while(tick < gYmax && 0 > gXmin && 0 < gXmax) {
+      rect(scaleX(0) + 5, y, scaleX(0)-4, y+1);
+      tick += gYscl;
+      y = scaleY(tick);
+      println(tick);
+    }
+    
+    tick = -1 * gYscl;
+    y = scaleY(tick);
+    while(tick > gYmin && 0 > gXmin && 0 < gXmax) {
+      rect(scaleX(0) + 5, y, scaleX(0)-4, y+1);
+      tick -= gYscl;
+      y = scaleY(tick);
+    }
   }
   void plotPoints(ArrayList<float[]> points) {
     for (float[] point : points) {
