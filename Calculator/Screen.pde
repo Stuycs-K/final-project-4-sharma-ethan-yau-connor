@@ -1,3 +1,5 @@
+import java.util.*;
+
 abstract class Screen {
   String name;
   ArrayList<String> text;
@@ -22,6 +24,8 @@ abstract class Screen {
     return name;
   }
   
+  LinkedHashMap<String,String> getFields() {return null;}
+  String[] getEquations() {return null;}
   void addLine(String line){
     text.add(line);
     topLine++;

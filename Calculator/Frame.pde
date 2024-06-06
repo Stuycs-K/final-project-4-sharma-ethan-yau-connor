@@ -15,7 +15,7 @@ class Frame {
   };
   
   Set<String> numButtons = Set.of(".","0","1","2","3","4","5","6","7","8","9","+","-","*","/","(",")","x");
-  Set<String> navButtons = Set.of("↑","←", "→", "↓", "main", "window", "graphMenu");
+  Set<String> navButtons = Set.of("↑","←", "→", "↓", "main", "window", "graphMenu", "graph");
   Set<String> miscButtons = Set.of("clear", "=");
   
   ArrayList<Button> buttons = new ArrayList<Button>();
@@ -93,53 +93,18 @@ class Frame {
       }
     }
   }
-  void navButtons() {
-    buttons.add(new NavButton(buttonHeight, buttonWidth, 10, screenMaxY + 20, "main"));
-    buttons.add(new NavButton(buttonHeight, buttonWidth, 60, screenMaxY + 20, "graphMenu"));
-    buttons.add(new NavButton(buttonHeight, buttonWidth, 110, screenMaxY + 20, "window"));
-  }
-  void equalsButton() {
-    buttons.add(new MiscButton(buttonHeight, buttonWidth,  400, screenMaxY + 340, "="));
-  }
-  void addOpButtons() {
-    buttons.add(new NumButton(buttonHeight, buttonWidth,  400, screenMaxY + 40, "+"));
-    buttons.add(new NumButton(buttonHeight, buttonWidth,  400, screenMaxY + 100, "-"));
-    buttons.add(new NumButton(buttonHeight, buttonWidth,  400, screenMaxY + 160, "/"));
-    buttons.add(new NumButton(buttonHeight, buttonWidth,  400, screenMaxY + 220, "*"));
-    buttons.add(new NumButton(buttonHeight, buttonWidth,  400, screenMaxY + 280, "^"));
-  }
-  void addArrowButtons() {
-    buttons.add(new NavButton(buttonHeight, buttonWidth,  10, screenMaxY + 100, "←"));
-    buttons.add(new NavButton(buttonHeight, buttonWidth,  60, screenMaxY + 40, "↑"));
-    buttons.add(new NavButton(buttonHeight, buttonWidth,  60, screenMaxY + 160, "↓"));
-    buttons.add(new NavButton(buttonHeight, buttonWidth,  110, screenMaxY +100, "→"));
-  }
   
-  void clearButton() {
-    buttons.add(new MiscButton(buttonHeight, buttonWidth, 10, screenMaxY + 220, "X"));
-  }
-  
-  void addNumButtons() {
-    buttons.add(new NumButton(buttonHeight, buttonWidth, 200, screenMaxY + 40, "1"));
-    buttons.add(new NumButton(buttonHeight, buttonWidth, 260, screenMaxY + 40, "2"));
-    buttons.add(new NumButton(buttonHeight, buttonWidth, 320, screenMaxY + 40, "3"));
-    buttons.add(new NumButton(buttonHeight, buttonWidth, 200, screenMaxY + 100, "4"));
-    buttons.add(new NumButton(buttonHeight, buttonWidth, 260, screenMaxY + 100, "5"));
-    buttons.add(new NumButton(buttonHeight, buttonWidth, 320, screenMaxY + 100, "6"));
-    buttons.add(new NumButton(buttonHeight, buttonWidth, 200, screenMaxY + 160, "7"));
-    buttons.add(new NumButton(buttonHeight, buttonWidth, 260, screenMaxY + 160, "8"));
-    buttons.add(new NumButton(buttonHeight, buttonWidth, 320, screenMaxY + 160, "9"));
-    buttons.add(new NumButton(buttonHeight, buttonWidth, 200, screenMaxY + 220, "0"));
-    buttons.add(new NumButton(buttonHeight, buttonWidth, 260, screenMaxY + 220, "("));
-    buttons.add(new NumButton(buttonHeight, buttonWidth, 320, screenMaxY + 220, ")"));
-    buttons.add(new NumButton(buttonHeight, buttonWidth, 200, screenMaxY + 280, "."));
-    buttons.add(new NumButton(buttonHeight, buttonWidth, 260, screenMaxY + 280, "x"));
+  void newGraph() {
+    Screen graphMenu = screens.get("graphMenu");
+    Screen graphWindow = screens.get("window");
+    Screen graph = new Graph("graph", screenMinX, screenMaxX, screenMinY, screenMaxY, graphWindow.getFields(), graphMenu.getEquations());
+    addScreen(graph);
     
   }
   void addScreen(Screen screen) {
-    if (screens.containsKey(screen.getName())) {
-      throw new RuntimeException("can't have duplicate screen names");
-    }
+    //if (screens.containsKey(screen.getName())) {
+    //  throw new RuntimeException("can't have duplicate screen names");
+    //}
     screens.put(screen.getName(), screen);
   }
   
@@ -166,10 +131,6 @@ class Frame {
     Screen screen = new MainScreen(name, maxCharsPerLine, maxLines, screenMinX, screenMaxX, screenMinY, screenMaxY, strHeight, padding, textWidth("a"));
     addScreen(screen);
     //print(maxLines);
-  }
-  
-  void newGraph(String name) {
-    
   }
   
   void newGraphMenu(String name) {

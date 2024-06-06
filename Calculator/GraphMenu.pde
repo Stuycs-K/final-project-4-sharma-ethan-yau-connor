@@ -45,6 +45,10 @@ class GraphMenu extends Screen {
     leftMostChar = 0;
     selectedLine = "";
   }
+  
+  String[] getEquations() {
+    return equations;
+  }
   void delete() {}
   void display() {
     int count = 0;

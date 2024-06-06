@@ -34,38 +34,11 @@ class Graph extends Screen {
   }
   
   void display() {
-    plotAxes();
-    float[][] sampleValues = {
-            {-9.23f, 3.15f},
-            {-7.88f, -1.45f},
-            {-6.50f, 8.33f},
-            {-3.14f, 0.56f},
-            {-1.01f, -9.99f},
-            {0.12f, -7.78f},
-            {2.45f, 4.21f},
-            {5.67f, -2.34f},
-            {7.89f, 6.45f},
-            {9.34f, -0.12f}
-        };
-        
-    ArrayList<float[]> points = new ArrayList<float[]>();
-    for (float[] point : sampleValues) {
-      points.add(point);
+    for (String eq : equations) {
+      continue;
     }
-    plotPoints(points);
   }
   
-  void plotAxes () {
-    float x = scaleX(0);
-    fill(0);
-    if (x >= minX && x <= maxX) {
-      rect(x, minY, x+1, maxY);
-    }
-    float y = scaleY(0);
-    if (y >= minY && y <= maxY) {
-      rect(minX, y, maxX, y+1);
-    }
-  }
   void plotPoints(ArrayList<float[]> points) {
     for (float[] point : points) {
       if (point.length < 2) continue;
@@ -76,16 +49,15 @@ class Graph extends Screen {
       
       x = scaleX(x);
       y = scaleY(y);
-      fill(0);
+      fill(255);
       rect(x, y, x+1, y+1);
-      //text(Arrays.toString(point), x, y);
     }
   }
   
   float scaleX(float x) {
-    return minX + (maxX - minX)/(gXmax - gXmin) * (x-gXmin);
+    return (maxX - minX)/(gXmax - gXmin) * x;
   }
   float scaleY(float y) {
-    return maxY - (maxY - minY)/(gYmax - gYmin) * (y-gYmin);
+    return (maxY - minY)/(gYmax - gYmin) * y;
   }
 }
