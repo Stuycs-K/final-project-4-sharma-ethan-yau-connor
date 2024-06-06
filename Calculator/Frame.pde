@@ -2,8 +2,8 @@ import java.util.Set;
 
 class Frame {
   String[][] buttonLayout = {
-  {"main","window","","","graph"},
-  {"","","","↑",""},
+  {"main","window","","","graphMenu"},
+  {"","","x","↑",""},
   {"","","←","","→"},
   {"","","","↓","clear"},
   {"","","","","^"},
@@ -14,9 +14,9 @@ class Frame {
   {"","0",".","","="},
   };
   
-  Set<String> numButtons = Set.of(".","0","1","2","3","4","5","6","7","8","9","+","-","*","/","(",")");
+  Set<String> numButtons = Set.of(".","0","1","2","3","4","5","6","7","8","9","+","-","*","/","(",")","x");
   Set<String> navButtons = Set.of("↑","←", "→", "↓", "main", "window", "graphMenu");
-  Set<String> miscButtons = Set.of("clear");
+  Set<String> miscButtons = Set.of("clear", "=");
   
   ArrayList<Button> buttons = new ArrayList<Button>();
   Screen curScreen;
@@ -52,7 +52,7 @@ class Frame {
     screenMaxX = width - screenMinX;
     screenMaxY = screenMinY + screenHeight;
     buttonHeight = 35;
-    buttonWidth = 35;
+    buttonWidth = 70;
 
     newMainScreen("main");
     newGraphMenu("graphMenu");
@@ -73,21 +73,21 @@ class Frame {
   }
   
   void initializeButtons() {
-    float xSpacing = 50;
-    float ySpacing = 60;
+    float xSpacing = 90;
+    float ySpacing = 50;
     String name;
     for (int i = 0; i < buttonLayout.length; i++) {
       for (int j = 0; j < buttonLayout[i].length; j++) {
         name = buttonLayout[i][j];
         if (name.equals("")) continue;
         if (numButtons.contains(name)) {
-          buttons.add(new NumButton(buttonHeight, buttonWidth, 10 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
+          buttons.add(new NumButton(buttonHeight, buttonWidth, 20 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
         }
         else if (miscButtons.contains(name)) {
-          buttons.add(new MiscButton(buttonHeight, buttonWidth, 10 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
+          buttons.add(new MiscButton(buttonHeight, buttonWidth, 20 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
         }
         else if (navButtons.contains(name)) {
-          buttons.add(new NavButton(buttonHeight, buttonWidth, 10 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
+          buttons.add(new NavButton(buttonHeight, buttonWidth, 20 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
         }
         
       }

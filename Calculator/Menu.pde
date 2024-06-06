@@ -199,6 +199,12 @@ class MainScreen extends Screen{
     if (curLine != text.size()) {
       return;
     }
+    if (newLine.length() == 0) {
+      if (text.size() == 0) {
+        return;
+      }
+      newLine = text.get(text.size()-2);
+    }
     text.add(newLine);
     float result = calc.compute(newLine);
     text.add("tag" + result);
