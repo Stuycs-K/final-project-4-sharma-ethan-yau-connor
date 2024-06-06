@@ -35,12 +35,19 @@ class GraphMenu extends Screen {
   }
   
   void submitNewLine() {}
-  void clearHistory() {}
+  void clearHistory() {
+    equations[curLine + topLine] = "";
+    curChar = 0;
+    selectedChar = 0;
+    leftMostChar = 0;
+    selectedLine = "";
+  }
   void delete() {}
   void display() {
     int count = 0;
     float curHeight = minY + padding;
-    selectedLine = equations[topLine + curLine];
+    
+    selectedLine = equations[curLine + topLine];
     while (curHeight < maxY - padding && count < maxEquations) {
       String eq = equations[count];
       if (eq == null) {
@@ -52,14 +59,17 @@ class GraphMenu extends Screen {
       String text = eq;
       //check if equation is the longer than possible
       int maxChars = maxCharsPerLine - prefixLength;
-      if (eq.length() > maxChars) {
-        text = eq.substring(leftMostChar, leftMostChar + maxChars);
-      }
+      int startChar = 0;
       
       if (count == curLine) {
         float offset = textWidth(prefix);
         float charOffset = curChar * textWidth;
         blinkBox(minX + padding + offset + charOffset, curHeight);
+        startChar = leftMostChar;
+      }
+      
+      if (eq.length() > maxChars) {
+        text = eq.substring(startChar, startChar + maxChars);
       }
       
       displayEquation(prefix, text, curHeight);
@@ -75,6 +85,18 @@ class GraphMenu extends Screen {
     
   }
   
+  void addToNewLine(char c) {
+    String text = equations[topLine + curLine];
+    if (selectedChar == text.length()) {
+      equations[topLine + curLine] += c;
+
+    }
+    else {
+      equations[topLine + curLine] = text.substring(0, selectedChar) + c + text.substring(selectedChar+1);
+    }
+    selectedLine = equations[topLine + curLine];
+    goRight();
+  } 
   void overflow() {}
   
   void rightOverFlow(float maxX, float curHeight) {
@@ -161,7 +183,6 @@ class GraphMenu extends Screen {
   }
   
   void addLines(String[] lines) {
-    print("ABC");
     int count = 0;
     for (String line: lines) {
       equations[count] = line;

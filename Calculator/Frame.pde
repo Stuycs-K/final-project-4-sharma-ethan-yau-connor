@@ -39,7 +39,7 @@ class Frame {
     newGraphMenu("graph");
     changeScreen("main");
     changeScreen("graph");
-    String[] test = {"abc", "abcdefghijklmnopaasdasdasdasdr"};
+    String[] test = {};
     addLines(test);
     
     addArrowButtons();
@@ -89,6 +89,7 @@ class Frame {
     buttons.add(new NumButton(buttonHeight, buttonWidth, 260, screenMaxY + 220, "("));
     buttons.add(new NumButton(buttonHeight, buttonWidth, 320, screenMaxY + 220, ")"));
     buttons.add(new NumButton(buttonHeight, buttonWidth, 200, screenMaxY + 280, "."));
+    buttons.add(new NumButton(buttonHeight, buttonWidth, 260, screenMaxY + 280, "x"));
     
   }
   void addScreen(Screen screen) {
