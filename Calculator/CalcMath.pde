@@ -27,27 +27,27 @@ public class CalcMath{
   }
   
   public ArrayList<String> parseEq(String str){
-    ArrayList<String> splitted = new ArrayList<String>(); 
+   ArrayList<String> splitted = new ArrayList<String>(); 
    int n=0;
-  for(int i = 0; i < str.length(); i++){
-    for(char c : basicOpers){
-      if(c == str.charAt(i)){
-        if(str.charAt(i) == '-'){
-          if(i != 0 && (str.charAt(i-1) <= '9' && str.charAt(i-1) >= '0'))
-          {
-            splitted.add(str.substring(n,i));
-          splitted.add(str.substring(i,i+1));
-          n = i+1;
+    for(int i = 0; i < str.length(); i++){
+      for(char c : basicOpers){
+        if(c == str.charAt(i)){
+          if(str.charAt(i) == '-'){
+            if(i != 0 && (str.charAt(i-1) <= '9' && str.charAt(i-1) >= '0'))
+            {
+              splitted.add(str.substring(n,i));
+            splitted.add(str.substring(i,i+1));
+            n = i+1;
+            }
           }
-        }
-        else{
-           splitted.add(str.substring(n,i));
-          splitted.add(str.substring(i,i+1));
-          n = i+1;
+          else{
+             splitted.add(str.substring(n,i));
+            splitted.add(str.substring(i,i+1));
+            n = i+1;
+          }
         }
       }
     }
-  }
   splitted.add(str.substring(n,str.length()));
   //println(splitted);
   return splitted;
@@ -92,27 +92,7 @@ public class CalcMath{
     
   }
   
-  public void pemdas(ArrayList<String> split){
-    int start = starts.get(ind);
-    int end = ends.get(ind);
-    for(char[] b : opersOrdered){
-      for(int i = start; i < end; i++){
-        if(split.get(i).length() > 0){
-        char c = split.get(i).charAt(0);
-        if(split.get(i).length() == 1){
-            if(contains(b, c)){
-               basicOper(split, i);
-               i--;
-               for(int j = 0; j < ends.size(); j++){
-                 ends.set(j,ends.get(j)-2);
-                 end = ends.get(ind);
-               }
-             }
-        }
-        }
-      }
-    }
-    }
+  
   
   
   public void parenthesisCheck(ArrayList<String> split){
@@ -120,8 +100,6 @@ public class CalcMath{
     ArrayList<Integer> closed = new ArrayList<Integer>();
     int start = starts.get(ind);
     int end = ends.get(ind);
-    //println(start);
-    //println(end);
     int k = 0;
     for(int i = start; i < end; i++){
       if(split.get(i).contains("(")){
@@ -150,25 +128,20 @@ public class CalcMath{
   // Assume length of opens, closed is the same (otherwise error)
   int size = opens.size();
   if(size == closed.size()){
-  //println(opens);
-  //println(closed);
-  if(size > 0){
-      int open = opens.get(0);
-      int close = closed.get(0);
-      split.set(open, split.get(open).substring(1,split.get(open).length()));
-      split.set(close, split.get(close).substring(0,split.get(close).length()-1));
-      
-      //print(open);
-      //print(close);
-      compute(open, close+1,split);
-      ends.remove(ind);
-      starts.remove(ind);
-      ind--;
-      if(ends.get(ind) > split.size()){
-      ends.set(ends.get(ind),split.size());
-      }
-      parenthesisCheck(split);
-  }
+    if(size > 0){
+        int open = opens.get(0);
+        int close = closed.get(0);
+        split.set(open, split.get(open).substring(1,split.get(open).length()));
+        split.set(close, split.get(close).substring(0,split.get(close).length()-1));
+        compute(open, close+1,split);
+        ends.remove(ind);
+        starts.remove(ind);
+        ind--;
+        if(ends.get(ind) > split.size()){
+          ends.set(ends.get(ind),split.size());
+          }
+        parenthesisCheck(split);
+    }
   }
   }
  public String basicOper(ArrayList<String> split, int index){
@@ -188,7 +161,27 @@ public class CalcMath{
   return ""+res;
  }
  
- 
+ public void pemdas(ArrayList<String> split){
+    int start = starts.get(ind);
+    int end = ends.get(ind);
+    for(char[] b : opersOrdered){
+      for(int i = start; i < end; i++){
+        if(split.get(i).length() > 0){
+          char c = split.get(i).charAt(0);
+          if(split.get(i).length() == 1){
+              if(contains(b, c)){
+                 basicOper(split, i);
+                 i--;
+                 for(int j = 0; j < ends.size(); j++){
+                   ends.set(j,ends.get(j)-2);
+                   end = ends.get(ind);
+                 }
+              }
+          }
+       }
+    }
+  }
+ }
  private float perform(char oper, float a, float b){
  if(oper == '+'){
  return a + b;
