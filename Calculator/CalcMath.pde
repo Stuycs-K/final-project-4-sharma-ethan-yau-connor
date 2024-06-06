@@ -6,7 +6,27 @@ public class CalcMath{
   int ind = -1;
   public CalcMath(){
   }
-  public ArrayList<String> parseinp(String str){
+
+  public ArrayList<float[]> graphPoints(String str, char x, float minX, float maxX, float dx){
+  ArrayList<float[]> points = new ArrayList<float[]>();
+  ArrayList<String> equation;
+  for(float k = minX; k < maxX; k+=dx){
+    String temp = str;
+    String newStr;
+    for(int i = 0; i < temp.length(); i++){
+      if(temp.charAt(i) == x){
+        newStr = temp.substring(0,i) + "*" + k + temp.substring(i+1,temp.length());
+        temp = newStr;
+      }
+    }
+    equation = parseEq(temp);
+    //println(equation);
+    points.add(new float[] {k, Float.parseFloat(compute(equation))});
+  }
+  return points;
+  }
+  
+  public ArrayList<String> parseEq(String str){
     ArrayList<String> splitted = new ArrayList<String>(); 
    int n=0;
   for(int i = 0; i < str.length(); i++){
@@ -32,12 +52,16 @@ public class CalcMath{
   //println(splitted);
   return splitted;
   }
+  
+  public String compute(ArrayList<String> split){
+    return compute(0,split.size(), split);
+  }
   public String compute(String str){
-    ArrayList<String> split = parseinp(str);
+    ArrayList<String> split = parseEq(str);
     return compute(str,0,split.size());
   }
   public String compute(String str, int start, int end){
-    ArrayList<String> split = parseinp(str);
+    ArrayList<String> split = parseEq(str);
     return compute(start, end, split);
   }
   public String compute(int start, int end, ArrayList<String> split){
@@ -67,6 +91,7 @@ public class CalcMath{
     return "" + result;
     
   }
+  
   public void pemdas(ArrayList<String> split){
     int start = starts.get(ind);
     int end = ends.get(ind);
@@ -88,15 +113,7 @@ public class CalcMath{
       }
     }
     }
-  public boolean contains(char[] arr, char c){
-    boolean isIn = false;
-    for(int j = 0; j < arr.length; j++){
-       if(arr[j] == c){
-         isIn = true;
-       }
-    }
-    return isIn;
-  }
+  
   
   public void parenthesisCheck(ArrayList<String> split){
     ArrayList<Integer> opens = new ArrayList<Integer>();
@@ -170,6 +187,8 @@ public class CalcMath{
   println(split);
   return ""+res;
  }
+ 
+ 
  private float perform(char oper, float a, float b){
  if(oper == '+'){
  return a + b;
@@ -191,4 +210,22 @@ public class CalcMath{
  }
  return 0;
  }
+ public boolean contains(char[] arr, char c){
+    boolean isIn = false;
+    for(int j = 0; j < arr.length; j++){
+       if(arr[j] == c){
+         isIn = true;
+       }
+    }
+    return isIn;
+  }
+  public boolean contains(String str, char c){
+    boolean isIn = false;
+    for(int j = 0; j < str.length(); j++){
+       if(str.charAt(j) == c){
+         isIn = true;
+       }
+    }
+    return isIn;
+  }
 }
