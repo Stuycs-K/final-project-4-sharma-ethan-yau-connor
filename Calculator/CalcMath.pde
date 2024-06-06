@@ -15,7 +15,12 @@ public class CalcMath{
     String newStr;
     for(int i = 0; i < temp.length(); i++){
       if(temp.charAt(i) == x){
-        newStr = temp.substring(0,i) + "*" + k + temp.substring(i+1,temp.length());
+        if(i == 0 || contains(basicOpers,temp.charAt(i-1))){
+          newStr = temp.substring(0,i) + k + temp.substring(i+1,temp.length());
+        }
+        else{
+          newStr = temp.substring(0,i) + "*" + k + temp.substring(i+1,temp.length());
+        }
         temp = newStr;
       }
     }

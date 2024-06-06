@@ -15,8 +15,8 @@ void setup(){
   plus = new NumButton(400,800,20,20,"+");
   CalcMath a = new CalcMath();
   //print(a.compute("(2+(2 % 2))^5+9%4-((4 + 8))"));
-  //String s = "2y+3y^2";
-  //ArrayList<float[]> pts = a.graphPoints(s, 'y', 0.0, 10.0, 1);
+  String s = "y+3y^2";
+  ArrayList<float[]> pts = a.graphPoints(s, 'y', 0.0, 10.0, 1);
   rectMode(CORNERS);
   frame = new Frame(20, 20, 300);
 }
