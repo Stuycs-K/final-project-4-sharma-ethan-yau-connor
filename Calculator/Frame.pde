@@ -36,9 +36,11 @@ class Frame {
     buttonWidth = 35;
 
     newMainScreen("main");
-    newGraphMenu("graph");
+    newGraphMenu("graphMenu");
+    newGraphWindow("window");
     changeScreen("main");
-    changeScreen("graph");
+    changeScreen("graphMenu");
+    changeScreen("window");
     String[] test = {};
     addLines(test);
     
@@ -52,7 +54,8 @@ class Frame {
   
   void navButtons() {
     buttons.add(new NavButton(buttonHeight, buttonWidth, 10, screenMaxY + 20, "main"));
-    buttons.add(new NavButton(buttonHeight, buttonWidth, 60, screenMaxY + 20, "graph"));
+    buttons.add(new NavButton(buttonHeight, buttonWidth, 60, screenMaxY + 20, "graphMenu"));
+    buttons.add(new NavButton(buttonHeight, buttonWidth, 110, screenMaxY + 20, "window"));
   }
   void equalsButton() {
     buttons.add(new MiscButton(buttonHeight, buttonWidth,  400, screenMaxY + 340, "="));
@@ -129,11 +132,17 @@ class Frame {
   }
   
   void newGraphMenu(String name) {
-    int maxEquations = 10;
+    int maxEquations = 12;
     int maxLines = (int) Math.ceil((screenMaxY - screenMinY) / (strHeight + padding));
     Screen graphMenu = new GraphMenu(name, maxCharsPerLine, maxLines, screenMinX, screenMaxX, screenMinY, screenMaxY, strHeight, padding, textWidth("a"), maxEquations);
     addScreen(graphMenu);
     
+  }
+  
+  void newGraphWindow(String name) {
+    int maxLines = (int) Math.ceil((screenMaxY - screenMinY) / (strHeight + padding));
+    Screen graphWindow = new GraphWindow(name, maxCharsPerLine, maxLines, screenMinX, screenMaxX, screenMinY, screenMaxY, strHeight, padding, textWidth("a"));
+    addScreen(graphWindow);
   }
   void changeScreen(String name) {
     curScreen = screens.get(name);

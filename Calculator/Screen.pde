@@ -46,6 +46,17 @@ abstract class Screen {
     }
     
   }
+  void leftJustify(String text, float curHeight) {
+
+    float minX = this.minX + padding;
+    float minY = curHeight;
+    float maxX = this.maxX - padding;
+    float maxY = curHeight + strHeight; 
+    
+    fill(0);
+    text(text, minX, minY, maxX, maxY);
+    fill(255);
+  }
   
   void submitNewLine() {}
   void clearHistory() {}

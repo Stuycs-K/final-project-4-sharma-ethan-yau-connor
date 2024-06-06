@@ -26,15 +26,18 @@ class GraphMenu extends Screen {
     this.padding = padding;
     this.textWidth = textWidth;
     this.maxEquations = maxEquations;
-    this.maxLines = maxEquations;
+    this.maxLines = maxLines;
     equations = new String[maxEquations];
+    for (int i = 0; i < maxEquations; i++) {
+      equations[i] = "";
+    }
     leftMostChar = 0;
     curChar = 0;
     selectedChar = 0;
     prefixLength = 0;
   }
   
-  void submitNewLine() {}
+  void submitNewLine() {goDown();}
   void clearHistory() {
     equations[curLine + topLine] = "";
     curChar = 0;
@@ -48,12 +51,12 @@ class GraphMenu extends Screen {
     float curHeight = minY + padding;
     
     selectedLine = equations[curLine + topLine];
-    while (curHeight < maxY - padding && count < maxEquations) {
-      String eq = equations[count];
+    while (curHeight < maxY - padding && count < maxLines) {
+      String eq = equations[count + topLine];
       if (eq == null) {
         eq = "";
       }
-      String prefix = String.format("%-3s", "Y" + (count+1) ) + "=";
+      String prefix = String.format("%-3s", "Y" + (count+1+topLine) ) + "=";
       prefixLength = prefix.length();
       
       String text = eq;
@@ -141,7 +144,7 @@ class GraphMenu extends Screen {
   
   void goUp() {
     if (curLine > 0) curLine--;
-    if (curLine < topLine) topLine = curLine;
+    else if (curLine < topLine && topLine > 0) topLine --;
     curChar = 0;
     leftMostChar = 0;
     selectedChar = 0;
@@ -151,7 +154,7 @@ class GraphMenu extends Screen {
   void goDown() {
 
     if (curLine < maxLines - 1) curLine++;
-    else if (topLine + curLine < maxEquations - 1) topLine++;
+    else if (topLine + curLine < maxLines - 1) topLine++;
     curChar = 0;
     leftMostChar = 0;
     selectedChar = 0;
