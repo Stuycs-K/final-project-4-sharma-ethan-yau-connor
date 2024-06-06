@@ -58,6 +58,10 @@ class GraphWindow extends Screen {
     lastFields = new LinkedHashMap<String, String>(fields);
   }
   
+  LinkedHashMap<String, String> getFields() {
+    return fields;
+  }
+  
   void submitNewLine() {
     submitNewLine(true);
   }

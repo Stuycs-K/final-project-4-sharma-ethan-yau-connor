@@ -2,7 +2,7 @@ import java.util.Set;
 
 class Frame {
   String[][] buttonLayout = {
-  {"main","window","","","graphMenu"},
+  {"main","window","graphMenu","","graph"},
   {"","","x","↑",""},
   {"","","←","","→"},
   {"","","","↓","clear"},
