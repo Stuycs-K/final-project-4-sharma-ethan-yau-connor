@@ -1,5 +1,24 @@
+import java.util.Set;
+
 class Frame {
-  ArrayList<Button> buttons;
+  String[][] buttonLayout = {
+  {"main","window","","","graph"},
+  {"","","","↑",""},
+  {"","","←","","→"},
+  {"","","","↓","clear"},
+  {"","","","","^"},
+  {"","","(",")","/"},
+  {"","7","8","9","*"},
+  {"","4","5","6","-"},
+  {"","1","2","3","+"},
+  {"","0",".","","="},
+  };
+  
+  Set<String> numButtons = Set.of(".","0","1","2","3","4","5","6","7","8","9","+","-","*","/","(",")");
+  Set<String> navButtons = Set.of("↑","←", "→", "↓", "main", "window", "graphMenu");
+  Set<String> miscButtons = Set.of("clear");
+  
+  ArrayList<Button> buttons = new ArrayList<Button>();
   Screen curScreen;
   HashMap<String, Screen> screens;
   float screenMinX;
@@ -16,8 +35,8 @@ class Frame {
   float buttonFont;
   int maxCharsPerLine;
   
+  
   Frame(float screenMinX, float screenMinY, float screenHeight) {
-    buttons = new ArrayList<Button>();
     screens = new HashMap<String, Screen>();
     
     //stuff for font
@@ -39,19 +58,41 @@ class Frame {
     newGraphMenu("graphMenu");
     newGraphWindow("window");
     changeScreen("main");
-    changeScreen("graphMenu");
-    changeScreen("window");
+    //changeScreen("graphMenu");
+    //changeScreen("window");
     String[] test = {};
     addLines(test);
     
-    addArrowButtons();
-    addNumButtons();
-    addOpButtons();
-    equalsButton();
-    clearButton();
-    navButtons();
+    initializeButtons();
+    //addArrowButtons();
+    //addNumButtons();
+    //addOpButtons();
+    //equalsButton();
+    //clearButton();
+    //navButtons();
   }
   
+  void initializeButtons() {
+    float xSpacing = 50;
+    float ySpacing = 60;
+    String name;
+    for (int i = 0; i < buttonLayout.length; i++) {
+      for (int j = 0; j < buttonLayout[i].length; j++) {
+        name = buttonLayout[i][j];
+        if (name.equals("")) continue;
+        if (numButtons.contains(name)) {
+          buttons.add(new NumButton(buttonHeight, buttonWidth, 10 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
+        }
+        else if (miscButtons.contains(name)) {
+          buttons.add(new MiscButton(buttonHeight, buttonWidth, 10 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
+        }
+        else if (navButtons.contains(name)) {
+          buttons.add(new NavButton(buttonHeight, buttonWidth, 10 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
+        }
+        
+      }
+    }
+  }
   void navButtons() {
     buttons.add(new NavButton(buttonHeight, buttonWidth, 10, screenMaxY + 20, "main"));
     buttons.add(new NavButton(buttonHeight, buttonWidth, 60, screenMaxY + 20, "graphMenu"));
