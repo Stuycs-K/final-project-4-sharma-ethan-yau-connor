@@ -163,7 +163,7 @@ class MainScreen extends Screen{
       return;
     }
     text.add(newLine);
-    float result = calc.compute(newLine);
+    String result = calc.compute(newLine);
     text.add("tag" + result);
     newLine = "";
     curChar = 0;
