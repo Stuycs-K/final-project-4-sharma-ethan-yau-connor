@@ -11,7 +11,7 @@ class MiscButton extends Button {
     if (name.equals("=")) {
       frame.submitNewLine();
     }
-    if (name.equals("X")) {
+    if (name.equals("clear")) {
       frame.clearHistory();
     }
     if (name.equals("del")) {

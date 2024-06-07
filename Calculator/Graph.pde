@@ -1,5 +1,5 @@
 class Graph extends Screen {
-  
+  CalcMath calc;
   float gXmin;
   float gXmax;
   float gXscl;
@@ -12,6 +12,9 @@ class Graph extends Screen {
   String[] equations;
   
   Graph(String name, float minX, float maxX, float minY, float maxY, LinkedHashMap<String, String> fields, String[] equations) {
+    fill(255);
+    rect(minX, minY, maxX, maxY);
+    fill(0);
     this.name = name;
     this.minX = minX;
     this.maxX = maxX;
@@ -27,32 +30,46 @@ class Graph extends Screen {
     gdx = Float.parseFloat(fields.get("ΔX"));
     gTraceStep = Float.parseFloat(fields.get("TraceStep"));
     this.equations = equations;
+    calc = new CalcMath();
+    graphEquations();
   }
   
   ArrayList<float[]> getPoints(String eq) {
     return null;
   }
   
+  void graphEquations() {
+    for (String equation : equations) {
+      if (equation.equals("")) continue;
+      ArrayList<float[]> points = calc.graphPoints(equation, 'x', gXmin, gXmax, 0.1);
+      
+      fill(0);
+      plotPoints(points);
+    }
+  }
+  
   void display() {
     plotAxes();
-    float[][] sampleValues = {
-            {-9.23f, 3.15f},
-            {-7.88f, -1.45f},
-            {-6.50f, 8.33f},
-            {-3.14f, 0.56f},
-            {-1.01f, -9.99f},
-            {0.12f, -7.78f},
-            {2.45f, 4.21f},
-            {5.67f, -2.34f},
-            {7.89f, 6.45f},
-            {9.34f, -0.12f}
-        };
+    //float[][] sampleValues = {
+    //        {-9.23f, 3.15f},
+    //        {-7.88f, -1.45f},
+    //        {-6.50f, 8.33f},
+    //        {-3.14f, 0.56f},
+    //        {-1.01f, -9.99f},
+    //        {0.12f, -7.78f},
+    //        {2.45f, 4.21f},
+    //        {5.67f, -2.34f},
+    //        {7.89f, 6.45f},
+    //        {9.34f, -0.12f}
+    //    };
         
-    ArrayList<float[]> points = new ArrayList<float[]>();
-    for (float[] point : sampleValues) {
-      points.add(point);
-    }
-    plotPoints(points);
+    //ArrayList<float[]> points = new ArrayList<float[]>();
+    //for (float[] point : sampleValues) {
+    //  points.add(point);
+    //}
+    //plotPoints(points);
+    //graphEquations();
+    noFill();
   }
   
   void plotAxes () {

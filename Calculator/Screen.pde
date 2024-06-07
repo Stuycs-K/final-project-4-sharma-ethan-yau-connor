@@ -24,6 +24,7 @@ abstract class Screen {
     return name;
   }
   
+  void graphEquations() {}
   LinkedHashMap<String,String> getFields() {return null;}
   String[] getEquations() {return null;}
   void addLine(String line){

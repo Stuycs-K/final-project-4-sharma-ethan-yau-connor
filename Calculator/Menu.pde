@@ -206,7 +206,7 @@ class MainScreen extends Screen{
       newLine = text.get(text.size()-2);
     }
     text.add(newLine);
-    float result = calc.compute(newLine);
+    String result = calc.compute(newLine);
     text.add("tag" + result);
     newLine = "";
     curChar = 0;

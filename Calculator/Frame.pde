@@ -14,7 +14,7 @@ class Frame {
   {"","0",".","","="},
   };
   
-  Set<String> numButtons = Set.of(".","0","1","2","3","4","5","6","7","8","9","+","-","*","/","(",")","x");
+  Set<String> numButtons = Set.of(".","0","1","2","3","4","5","6","7","8","9","+","-","*","/","(",")","^","x");
   Set<String> navButtons = Set.of("↑","←", "→", "↓", "main", "window", "graphMenu", "graph");
   Set<String> miscButtons = Set.of("clear", "=");
   
@@ -100,6 +100,7 @@ class Frame {
     Screen graph = new Graph("graph", screenMinX, screenMaxX, screenMinY, screenMaxY, graphWindow.getFields(), graphMenu.getEquations());
     addScreen(graph);
     
+    
   }
   void addScreen(Screen screen) {
     //if (screens.containsKey(screen.getName())) {
@@ -154,6 +155,11 @@ class Frame {
   void display() {
     fill(255);
     textFont(font);
+    
+    if (curScreen.getName().equals("graph")) {
+      
+      noFill();
+    }
     rect(screenMinX, screenMinY, screenMaxX, screenMaxY);
     curScreen.display();
     for (Button button : buttons) {
