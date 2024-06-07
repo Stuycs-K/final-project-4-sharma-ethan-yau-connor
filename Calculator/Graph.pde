@@ -41,7 +41,7 @@ class Graph extends Screen {
   void graphEquations() {
     for (String equation : equations) {
       if (equation.equals("")) continue;
-      ArrayList<float[]> points = calc.graphPoints(equation, 'x', gXmin, gXmax, 0.05);
+      ArrayList<float[]> points = calc.graphPoints(equation, 'x', gXmin, gXmax, (gXmax - gXmin)/1000);
       
       fill(0);
       plotPoints(points);
