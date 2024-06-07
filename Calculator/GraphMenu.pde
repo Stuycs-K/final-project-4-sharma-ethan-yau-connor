@@ -158,7 +158,7 @@ class GraphMenu extends Screen {
   void goDown() {
 
     if (curLine < maxLines - 1) curLine++;
-    else if (topLine + curLine < maxLines - 1) topLine++;
+    else if (topLine + curLine < maxEquations - 1) topLine++;
     curChar = 0;
     leftMostChar = 0;
     selectedChar = 0;
