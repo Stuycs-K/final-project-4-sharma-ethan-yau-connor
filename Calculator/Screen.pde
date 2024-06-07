@@ -1,3 +1,5 @@
+import java.util.*;
+
 abstract class Screen {
   String name;
   ArrayList<String> text;
@@ -9,13 +11,22 @@ abstract class Screen {
   int smallFontSize;
   int maxLines;
   int selectedChar;
-  String TAG = "tag";
+  float minX;
+  float maxX;
+  float minY;
+  float maxY;
+  float strHeight;
+  float padding;
+  float textWidth;
   String newLine;
   
   String getName() {
     return name;
   }
   
+  void graphEquations() {}
+  LinkedHashMap<String,String> getFields() {return null;}
+  String[] getEquations() {return null;}
   void addLine(String line){
     text.add(line);
     topLine++;
@@ -28,6 +39,7 @@ abstract class Screen {
   }
   
   void addLines(String[] lines) {
+    print("ABCD");
     for (String line: lines) {
       text.add(line);
     }
@@ -39,10 +51,22 @@ abstract class Screen {
     }
     
   }
+  void leftJustify(String text, float curHeight) {
+
+    float minX = this.minX + padding;
+    float minY = curHeight;
+    float maxX = this.maxX - padding;
+    float maxY = curHeight + strHeight; 
+    
+    fill(0);
+    text(text, minX, minY, maxX, maxY);
+    fill(255);
+  }
   
   void submitNewLine() {}
-  
-  void display(float minX, float maxX, float minY, float maxY, float strHeight, float padding) {}
+  void clearHistory() {}
+  void delete() {}
+  void display() {}
   void goUp(){}
   void goDown(){}
   void goRight(){}

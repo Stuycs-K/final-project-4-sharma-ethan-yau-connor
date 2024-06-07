@@ -20,5 +20,13 @@ class NavButton extends Button {
     else if (name.equals("↓")) {
       frame.goDown();
     }
+    else if (name.equals("graph")) {
+      frame.newGraph();
+      frame.changeScreen("graph");
+      frame.curScreen.graphEquations();
+    }
+    else {
+      frame.changeScreen(name);
+    }
   }
 }

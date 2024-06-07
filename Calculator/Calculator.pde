@@ -13,8 +13,10 @@ void setup(){
   size(500, 900);
   butt = new NumButton(200,800,20,20,"1");
   plus = new NumButton(400,800,20,20,"+");
-  //CalcMath a = new CalcMath();
+  CalcMath a = new CalcMath();
   //print(a.compute("(2+(2 % 2))^5+9%4-((4 + 8))"));
+  String s = "y+3y^2";
+  ArrayList<float[]> pts = a.graphPoints(s, 'y', 0.0, 10.0, 1);
   rectMode(CORNERS);
   frame = new Frame(20, 20, 300);
 }
@@ -29,7 +31,7 @@ void mouseClicked(){
 }
 
 void keyPressed() {
-  println(keyCode);
+  //println(keyCode);
   if (key == CODED) {
     if (keyCode == UP) {
       frame.goUp();
