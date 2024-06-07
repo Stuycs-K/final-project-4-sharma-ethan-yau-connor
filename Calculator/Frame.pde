@@ -40,13 +40,18 @@ class Frame {
     screens = new HashMap<String, Screen>();
     
     //stuff for font
-    font = createFont("Monospaced", 32);
+    
+    float weight = 32;
+    if (OS.equals("linux")) {
+      weight = 28;
+    }
+    font = createFont("Monospaced", weight);
     textFont(font);
     strAscent = textAscent();
     strDescent = textDescent();
     strHeight = strAscent + strDescent;
     padding = 10;
-    maxCharsPerLine = (int) Math.floor((width - 2*screenMinX - 2*padding)/textWidth("a"));
+    maxCharsPerLine = (int) Math.floor((width - 2*screenMinX - 2*padding)/textWidth("a")) - 1;
     this.screenMinX = screenMinX;
     this.screenMinY = screenMinY;
     screenMaxX = width - screenMinX;
@@ -158,11 +163,20 @@ class Frame {
   void display() {
     fill(255);
     textFont(font);
-    
+    noStroke();
+    fill(204);
+    rect(0, 0, width, screenMinY);
+    rect(0, 0, screenMinX, screenMaxY+20);
+    rect(screenMaxX, 0, width, screenMaxY);
+    rect(0, screenMaxY, width, screenMaxY+20);
+    fill(255);
     if (curScreen.getName().equals("graph")) {
       
       noFill();
     }
+    
+    
+    stroke(0);
     rect(screenMinX, screenMinY, screenMaxX, screenMaxY);
     curScreen.display();
     for (Button button : buttons) {

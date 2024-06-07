@@ -59,12 +59,15 @@ class Graph extends Screen {
     noStroke();
     for (String equation : equations) {
       if (equation.equals("")) continue;
-      ArrayList<float[]> points = calc.graphPoints(equation, 'x', gXmin, gXmax, (gXmax - gXmin)/1000);
+      ArrayList<float[]> points = calc.graphPoints(equation, 'x', gXmin, gXmax, (gXmax - gXmin)/5000);
       
       fill(colors[count]);
+      stroke(colors[count]);
+      strokeWeight(2);
       plotPoints(points);
       count++;
     }
+    strokeWeight(1);
     stroke(0);
     fill(0);
   }
@@ -152,7 +155,7 @@ class Graph extends Screen {
       x = scaleX(x);
       y = scaleY(y);
       //fill(0);
-      rect(x-1, y-1, x+1, y+1);
+      //rect(x-1, y-1, x+1, y+1);
       if (last == null) {
         last = new float[]{x, y};
         continue;
