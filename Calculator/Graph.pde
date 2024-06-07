@@ -103,6 +103,7 @@ class Graph extends Screen {
     }
   }
   void plotPoints(ArrayList<float[]> points) {
+    float[] last = null;
     for (float[] point : points) {
       if (point.length < 2) continue;
       float x = point[0];
@@ -114,6 +115,15 @@ class Graph extends Screen {
       y = scaleY(y);
       fill(0);
       rect(x, y, x+1, y+1);
+      if (last == null) {
+        last = new float[]{x, y};
+        continue;
+      }
+      
+      line(last[0], last[1], x, y);
+      last = new float[]{x,y};
+      
+      
       //text(Arrays.toString(point), x, y);
     }
   }
