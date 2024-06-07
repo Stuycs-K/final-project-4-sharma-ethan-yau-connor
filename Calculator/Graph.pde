@@ -91,7 +91,7 @@ class Graph extends Screen {
       rect(scaleX(0) + 5, y, scaleX(0)-4, y+1);
       tick += gYscl;
       y = scaleY(tick);
-      println(tick);
+      //println(tick);
     }
     
     tick = -1 * gYscl;
