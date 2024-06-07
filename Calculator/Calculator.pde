@@ -31,7 +31,7 @@ void mouseClicked(){
 }
 
 void keyPressed() {
-  println(keyCode);
+  //println(keyCode);
   if (key == CODED) {
     if (keyCode == UP) {
       frame.goUp();
