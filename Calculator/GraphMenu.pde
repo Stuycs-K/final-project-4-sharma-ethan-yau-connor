@@ -7,6 +7,21 @@ class GraphMenu extends Screen {
   String selectedLine;
   int prefixLength;
   
+  color[] colors= {
+    color(0, 0, 255),
+    color(255, 0, 0),
+    color(0, 0, 0),
+    color(255, 192, 203),
+    color(0, 255, 0),
+    color(255, 0, 255),
+    color(255, 255, 0),
+    color(51, 25, 0),
+    color(50, 255, 255),
+    color(255, 128, 0),
+    color(255, 0, 127),
+    color(128, 128, 128),
+  };
+  
   GraphMenu(String name, int maxCharsPerLine, int maxLines, float minX, float maxX, float minY, float maxY, float strHeight, float padding, float textWidth, int maxEquations) {
     this.name = name;
     this.text = new ArrayList<String>();
@@ -26,7 +41,7 @@ class GraphMenu extends Screen {
     this.padding = padding;
     this.textWidth = textWidth;
     this.maxEquations = maxEquations;
-    this.maxLines = maxLines;
+    this.maxLines = maxLines + 1;
     equations = new String[maxEquations];
     for (int i = 0; i < maxEquations; i++) {
       equations[i] = "";
@@ -55,12 +70,17 @@ class GraphMenu extends Screen {
     float curHeight = minY + padding;
     
     selectedLine = equations[curLine + topLine];
-    while (curHeight < maxY - padding && count < maxLines) {
+    while (curHeight < maxY && count < maxLines) {
       String eq = equations[count + topLine];
       if (eq == null) {
         eq = "";
       }
-      String prefix = String.format("%-3s", "Y" + (count+1+topLine) ) + "=";
+      noStroke();
+      fill(colors[count+topLine]);
+      rect(minX + padding, curHeight, minX + padding + textWidth - 3, curHeight + strHeight - 5);
+      fill(0);
+      stroke(0);
+      String prefix = String.format("%-4s", " Y" + (count+1+topLine) ) + "=";
       prefixLength = prefix.length();
       
       String text = eq;

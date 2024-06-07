@@ -11,6 +11,21 @@ class Graph extends Screen {
   float gTraceStep;
   String[] equations;
   
+  color[] colors= {
+    color(0, 0, 255),
+    color(255, 0, 0),
+    color(0, 0, 0),
+    color(255, 192, 203),
+    color(0, 255, 0),
+    color(255, 0, 255),
+    color(255, 255, 0),
+    color(51, 25, 0),
+    color(50, 255, 255),
+    color(255, 128, 0),
+    color(255, 0, 127),
+    color(128, 128, 128),
+  };
+  
   Graph(String name, float minX, float maxX, float minY, float maxY, LinkedHashMap<String, String> fields, String[] equations) {
     fill(255);
     rect(minX, minY, maxX, maxY);
@@ -31,6 +46,7 @@ class Graph extends Screen {
     gTraceStep = Float.parseFloat(fields.get("TraceStep"));
     this.equations = equations;
     calc = new CalcMath();
+    display();
     graphEquations();
   }
   
@@ -39,13 +55,18 @@ class Graph extends Screen {
   }
   
   void graphEquations() {
+    int count = 0;
+    noStroke();
     for (String equation : equations) {
       if (equation.equals("")) continue;
       ArrayList<float[]> points = calc.graphPoints(equation, 'x', gXmin, gXmax, (gXmax - gXmin)/1000);
       
-      fill(0);
+      fill(colors[count]);
       plotPoints(points);
+      count++;
     }
+    stroke(0);
+    fill(0);
   }
   
   void display() {
@@ -130,7 +151,7 @@ class Graph extends Screen {
       
       x = scaleX(x);
       y = scaleY(y);
-      fill(0);
+      //fill(0);
       rect(x-1, y-1, x+1, y+1);
       if (last == null) {
         last = new float[]{x, y};
@@ -139,7 +160,6 @@ class Graph extends Screen {
       
       line(last[0], last[1], x, y);
       last = new float[]{x,y};
-      
       
       //text(Arrays.toString(point), x, y);
     }
