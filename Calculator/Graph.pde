@@ -41,7 +41,7 @@ class Graph extends Screen {
   void graphEquations() {
     for (String equation : equations) {
       if (equation.equals("")) continue;
-      ArrayList<float[]> points = calc.graphPoints(equation, 'x', gXmin, gXmax, 0.1);
+      ArrayList<float[]> points = calc.graphPoints(equation, 'x', gXmin, gXmax, 0.05);
       
       fill(0);
       plotPoints(points);
@@ -131,7 +131,7 @@ class Graph extends Screen {
       x = scaleX(x);
       y = scaleY(y);
       fill(0);
-      rect(x, y, x+1, y+1);
+      rect(x-1, y-1, x+1, y+1);
       if (last == null) {
         last = new float[]{x, y};
         continue;

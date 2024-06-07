@@ -78,7 +78,10 @@ class GraphWindow extends Screen {
   }
   
   void clearHistory() {
-    
+    fields.put(curKey, "");
+    curChar = 0;
+    selectedChar = 0;
+    leftMostChar = 0;
   }
   
   boolean isFloat(String str) {
