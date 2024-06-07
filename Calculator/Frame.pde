@@ -148,6 +148,9 @@ class Frame {
     addScreen(graphWindow);
   }
   void changeScreen(String name) {
+    if (curScreen!=null&&curScreen.getName().equals("window")) {
+      curScreen.submitNewLine();
+    }
     curScreen = screens.get(name);
     display();
   }

@@ -66,7 +66,14 @@ class GraphWindow extends Screen {
     submitNewLine(true);
   }
   void submitNewLine(boolean goDown) {
-    if (!isFloat(fields.get(curKey))) {
+    boolean notValid = false;
+    notValid = !isFloat(fields.get(curKey));
+    notValid = Float.valueOf(fields.get("Xmin")) <= Float.valueOf(fields.get("Xmax"));
+    notValid = Float.valueOf(fields.get("Ymin")) <= Float.valueOf(fields.get("Ymax"));
+    
+    
+    
+    if (notValid) {
       fields.put(curKey, lastFields.get(curKey));
     } else {
       lastFields.put(curKey, fields.get(curKey));
