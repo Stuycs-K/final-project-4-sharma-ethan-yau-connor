@@ -149,17 +149,17 @@ class Graph extends Screen {
       if (point.length < 2) continue;
       float x = point[0];
       float y = point[1];
-      
+      if (last == null) {
+        last = new float[]{x, y};
+        continue;
+      }
       if (x < gXmin || x > gXmax || y < gYmin || y > gYmax) continue;
       
       x = scaleX(x);
       y = scaleY(y);
       //fill(0);
       //rect(x-1, y-1, x+1, y+1);
-      if (last == null) {
-        last = new float[]{x, y};
-        continue;
-      }
+      
       
       line(last[0], last[1], x, y);
       last = new float[]{x,y};

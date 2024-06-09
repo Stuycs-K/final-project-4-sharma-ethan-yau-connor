@@ -61,6 +61,9 @@ public class CalcMath{
           }
         }
       }
+      if(i >= str.length()){
+        break;
+      }
       for(char c : basicOpers){
         if(c == str.charAt(i)){
           if(str.charAt(i) == '-'){
@@ -129,13 +132,13 @@ public class CalcMath{
   for(int i = 0; i < split.size(); i++){
     for(String trig : trigOpers){
       if(split.get(i).contains(trig)){
-         split.set(i, ""+computeTrig(trig, split.get(i)));
+         split.set(i, computeTrig(trig, split.get(i)));
       }
     }
   }
 }
   
-  public float computeTrig(String oper, String call){
+  public String computeTrig(String oper, String call){
     String inp;
   if(call.charAt(call.length()-1) == ')'){
     inp = compute(call.substring(4,call.length()-1));
@@ -143,25 +146,30 @@ public class CalcMath{
   else{
     inp = compute(call.substring(4,call.length()));
   }
+  try{
   if(oper.equals("sin")){
-    return (float)Math.sin(Double.parseDouble(inp));
+    return ""+(float)Math.sin(Double.parseDouble(inp));
   }
   if(oper.equals("cos")){
-    return (float)Math.cos(Double.parseDouble(inp));
+    return ""+(float)Math.cos(Double.parseDouble(inp));
   }
   if(oper.equals("tan")){
-    return (float)Math.tan(Double.parseDouble(inp));
+    return ""+(float)Math.tan(Double.parseDouble(inp));
   }
   if(oper.equals("csc")){
-    return 1 / (float)Math.sin(Double.parseDouble(inp));
+    return ""+ 1 / (float)Math.sin(Double.parseDouble(inp));
   }
   if(oper.equals("sec")){
-    return 1 / (float)Math.cos(Double.parseDouble(inp));
+    return ""+ 1 / (float)Math.cos(Double.parseDouble(inp));
   }
   if(oper.equals("cot")){
-    return 1 / (float)Math.tan(Double.parseDouble(inp));
+    return ""+ 1 / (float)Math.tan(Double.parseDouble(inp));
   }
-  return 0;
+  return ""+0;
+  }
+  catch(Exception e){
+  return "Error";
+  }
   }
   
   public void parenthesisCheck(ArrayList<String> split){

@@ -6,12 +6,12 @@ class Frame {
   {"","","x","↑",""},
   {"","","←","","→"},
   {"","","","↓","clear"},
-  {"sin(","","","","^"},
-  {"cos(","","(",")","/"},
-  {"tan(","7","8","9","*"},
-  {"csc(","4","5","6","-"},
-  {"sec(","1","2","3","+"},
-  {"cot(","0",".","","="},
+  {"sin","","","","^"},
+  {"cos","","(",")","/"},
+  {"tan","7","8","9","*"},
+  {"csc","4","5","6","-"},
+  {"sec","1","2","3","+"},
+  {"cot","0",".","","="},
   };
   
   Set<String> numButtons = Set.of(".","0","1","2","3","4","5","6","7","8","9","+","-","*","/","(",")","^","x","sin(","cos(","tan(","csc(","sec(","cot(");
@@ -87,6 +87,9 @@ class Frame {
         if (name.equals("")) continue;
         if (numButtons.contains(name)) {
           buttons.add(new NumButton(buttonHeight, buttonWidth, 20 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
+        }
+        if(numButtons.contains(name + "(")){
+          buttons.add(new NumButton(buttonHeight, buttonWidth, 20 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name+"(",name));
         }
         else if (miscButtons.contains(name)) {
           buttons.add(new MiscButton(buttonHeight, buttonWidth, 20 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
