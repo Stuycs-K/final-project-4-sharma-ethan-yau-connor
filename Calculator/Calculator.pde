@@ -8,6 +8,7 @@ HashMap<String, Screen> screens;
 int mousexpos;
 int mouseypos;
 String disp = "";
+final String OS = platformNames[platform];
 void setup(){
   textSize(16);
   size(500, 900);
@@ -16,9 +17,12 @@ void setup(){
   CalcMath a = new CalcMath();
   //print(a.compute("(2+(2 % 2))^5+9%4-((4 + 8))"));
   //String s = "y+3y^2";
-  //ArrayList<float[]> pts = a.graphPoints(s, 'y', 0.0, 10.0, 1);
+ // ArrayList<float[]> pts = a.graphPoints(s, 'y', 0.0, 10.0, 1);
   rectMode(CORNERS);
   frame = new Frame(20, 20, 300);
+  
+  
+  println(OS);
 }
 void draw(){
   frame.display();
