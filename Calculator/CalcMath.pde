@@ -1,5 +1,6 @@
 public class CalcMath{
   char[] basicOpers = {'^', '*', '/', '%', '+', '-'};
+  String[] trigOpers = {"sin", "cos", "tan", "csc", "sec", "cot"};
   char[][] opersOrdered = {{'^'}, {'*', '/', '%'}, {'+', '-'}};
   ArrayList<Integer> starts = new ArrayList<Integer>();
   ArrayList<Integer> ends = new ArrayList<Integer>();
@@ -26,21 +27,46 @@ public class CalcMath{
     }
     equation = parseEq(temp);
     //println(equation);
+    try{
     points.add(new float[] {k, Float.parseFloat(compute(equation))});
+    }
+    catch(Exception e){
+    print("Error");
+    }
   }
   return points;
   }
-  
+
   public ArrayList<String> parseEq(String str){
    ArrayList<String> splitted = new ArrayList<String>(); 
    int n=0;
+   int parenCount = 0;
     for(int i = 0; i < str.length(); i++){
+        for(String trig : trigOpers){
+          if(i < str.length() - 3){
+          if(str.substring(i,i+3).equals(trig)){
+            int newindex;
+            for(newindex = i; newindex < str.length(); newindex++){
+              if(str.charAt(newindex) == '('){
+                parenCount++;
+              }
+              if(str.charAt(newindex) == ')'){
+                parenCount--;
+              }
+              if(newindex > i+3 && parenCount == 0){
+              break;
+              }
+            }
+            i = newindex;
+          }
+        }
+      }
       for(char c : basicOpers){
         if(c == str.charAt(i)){
           if(str.charAt(i) == '-'){
             if(i != 0 && (str.charAt(i-1) <= '9' && str.charAt(i-1) >= '0'))
             {
-              splitted.add(str.substring(n,i));
+             splitted.add(str.substring(n,i));
             splitted.add(str.substring(i,i+1));
             n = i+1;
             }
@@ -54,7 +80,7 @@ public class CalcMath{
       }
     }
   splitted.add(str.substring(n,str.length()));
-  //println(splitted);
+  println(splitted);
   return splitted;
   }
   
@@ -70,6 +96,7 @@ public class CalcMath{
     return compute(start, end, split);
   }
   public String compute(int start, int end, ArrayList<String> split){
+    evalTrig(split);
     ind++;
     starts.add(start);
     ends.add(end);
@@ -98,7 +125,44 @@ public class CalcMath{
   }
   
   
+  public void evalTrig(ArrayList<String> split){
+  for(int i = 0; i < split.size(); i++){
+    for(String trig : trigOpers){
+      if(split.get(i).contains(trig)){
+         split.set(i, ""+computeTrig(trig, split.get(i)));
+      }
+    }
+  }
+}
   
+  public float computeTrig(String oper, String call){
+    String inp;
+  if(call.charAt(call.length()-1) == ')'){
+    inp = compute(call.substring(4,call.length()-1));
+  }
+  else{
+    inp = compute(call.substring(4,call.length()));
+  }
+  if(oper.equals("sin")){
+    return (float)Math.sin(Double.parseDouble(inp));
+  }
+  if(oper.equals("cos")){
+    return (float)Math.cos(Double.parseDouble(inp));
+  }
+  if(oper.equals("tan")){
+    return (float)Math.tan(Double.parseDouble(inp));
+  }
+  if(oper.equals("csc")){
+    return 1 / (float)Math.sin(Double.parseDouble(inp));
+  }
+  if(oper.equals("sec")){
+    return 1 / (float)Math.cos(Double.parseDouble(inp));
+  }
+  if(oper.equals("cot")){
+    return 1 / (float)Math.tan(Double.parseDouble(inp));
+  }
+  return 0;
+  }
   
   public void parenthesisCheck(ArrayList<String> split){
     ArrayList<Integer> opens = new ArrayList<Integer>();

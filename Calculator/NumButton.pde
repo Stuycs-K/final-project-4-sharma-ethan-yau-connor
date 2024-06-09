@@ -10,7 +10,8 @@ class NumButton extends Button{
   }
   
   void operation() {
-    
-    frame.updateNewLine(name.charAt(0));
+    for(int i = 0; i < name.length(); i++){
+      frame.updateNewLine(name.charAt(i));
+    }
   }
 }
