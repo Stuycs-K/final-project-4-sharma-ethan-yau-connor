@@ -67,7 +67,7 @@ public class CalcMath{
       for(char c : basicOpers){
         if(c == str.charAt(i)){
           if(str.charAt(i) == '-'){
-            if(i != 0 && (str.charAt(i-1) <= '9' && str.charAt(i-1) >= '0'))
+            if(i != 0 && ((str.charAt(i-1) <= '9' && str.charAt(i-1) >= '0') || str.charAt(i-1) == 'e'|| str.charAt(i-1) == 'π'))
             {
              splitted.add(str.substring(n,i));
             splitted.add(str.substring(i,i+1));
@@ -100,6 +100,7 @@ public class CalcMath{
   }
   public String compute(int start, int end, ArrayList<String> split){
     evalTrig(split);
+    constants(split);
     ind++;
     starts.add(start);
     ends.add(end);
@@ -127,7 +128,16 @@ public class CalcMath{
     
   }
   
-  
+  void constants(ArrayList<String> split){
+  for(int i = 0; i < split.size(); i++){
+     if(split.get(i).equals("π")){
+       split.set(i, ""+Math.PI);
+     }
+     if(split.get(i).equals("e")){
+       split.set(i, ""+Math.E);
+     }
+  }
+  }
   public void evalTrig(ArrayList<String> split){
   for(int i = 0; i < split.size(); i++){
     for(String trig : trigOpers){
