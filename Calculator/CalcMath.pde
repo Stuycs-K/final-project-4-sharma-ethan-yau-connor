@@ -53,6 +53,8 @@ public class CalcMath{
               if(str.charAt(newindex) == ')'){
                 parenCount--;
               }
+              println("i " + i);
+              println("parenthesis " + parenCount);
               if(newindex > i+3 && parenCount == 0){
               break;
               }
@@ -67,8 +69,7 @@ public class CalcMath{
       for(char c : basicOpers){
         if(c == str.charAt(i)){
           if(str.charAt(i) == '-'){
-            if(i != 0 && ((str.charAt(i-1) <= '9' && str.charAt(i-1) >= '0') || str.charAt(i-1) == 'e'|| str.charAt(i-1) == 'π'))
-            {
+            if(i != 0 && checkNegative(str.charAt(i-1))){
              splitted.add(str.substring(n,i));
             splitted.add(str.substring(i,i+1));
             n = i+1;
@@ -86,7 +87,10 @@ public class CalcMath{
   println(splitted);
   return splitted;
   }
-  
+  public boolean checkNegative(char prev){
+    //true when its a - sign instead of a negative number
+    return (prev == ')' || ((prev <= '9' && prev >= '0') || prev == 'e'|| prev == 'π'));
+  }
   public String compute(ArrayList<String> split){
     return compute(0,split.size(), split);
   }
