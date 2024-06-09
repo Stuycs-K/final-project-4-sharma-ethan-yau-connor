@@ -4,6 +4,7 @@ abstract class Button {
   float x;
   float y;
   String name;
+  String disp;
   Button second;
   Button alpha;
   boolean clicked = false;
@@ -20,6 +21,6 @@ abstract class Button {
     fill(255);
     rect(x, y, x+Bwidth, y+Bheight, 5);
     fill(0);
-    text(name, x + Bwidth*.8 - textWidth(name), y + Bheight*0.8);
+    text(disp, x + Bwidth*.8 - textWidth(disp), y + Bheight*0.8);
   }
 }

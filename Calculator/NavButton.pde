@@ -5,6 +5,11 @@ class NavButton extends Button {
     this.x = x;
     this.y = y;
     name = function;
+    disp = function;
+  }
+  NavButton(float Bheight, float Bwidth, float x, float y, String function, String disp) {
+    this(Bheight,Bwidth,x,y,function);
+    this.disp = disp;
   }
   
   void operation() {
@@ -19,6 +24,14 @@ class NavButton extends Button {
     }
     else if (name.equals("↓")) {
       frame.goDown();
+    }
+    else if (name.equals("graph")) {
+      frame.newGraph();
+      frame.changeScreen("graph");
+      frame.curScreen.graphEquations();
+    }
+    else {
+      frame.changeScreen(name);
     }
   }
 }

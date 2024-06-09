@@ -1,7 +1,9 @@
 class MainScreen extends Screen{
   CalcMath calc;
+  String TAG = "tag";
+  String newLine;
   
-  MainScreen(String name, int maxCharsPerLine, int maxLines) {
+  MainScreen(String name, int maxCharsPerLine, int maxLines, float minX, float maxX, float minY, float maxY, float strHeight, float padding, float textWidth) {
     this.name = name;
     this.text = new ArrayList<String>();
     this.topLine = 0;
@@ -14,6 +16,13 @@ class MainScreen extends Screen{
     this.maxLines = maxLines;
     this.newLine = "";
     calc = new CalcMath();
+    this.minX = minX;
+    this.maxX = maxX;
+    this.minY = minY;
+    this.maxY = maxY;
+    this.strHeight = strHeight;
+    this.padding = padding;
+    this.textWidth = textWidth;
     
   }
   
@@ -45,6 +54,13 @@ class MainScreen extends Screen{
     if (curChar > 0) curChar--;
   }
   
+  void clearHistory() {
+    text = new ArrayList<String>();
+    curLine = 0;
+    curChar = 0;
+    selectedChar = 0;
+    newLine = "";
+  }
   void goRight() {
     // for editable line
     if (curLine == text.size()) {
@@ -64,30 +80,39 @@ class MainScreen extends Screen{
     if (curChar + maxCharsPerLine < line.length()) curChar++;
   }
   
-  void highlightCurLine(float textWidth, float x, float y, float strHeight, float padding) {
+  void highlightCurLine(float x, float y, String line) {
     fill(20, 20, 100, 160);
     noStroke();
-    rect(x-2, y-2, x + textWidth + 2, y + strHeight + 2);
+    rect(x-2, y-2, x + textWidth(line) + 2, y + strHeight + 2);
     fill(0);
     stroke(0);
   }
   
-  void leftJustify(boolean highlight, String text, float minX, float minY, float maxX, float maxY, float strHeight) {
+  void leftJustify(boolean highlight, String text, float curHeight) {
+
+    float minX = this.minX + padding;
+    float minY = curHeight;
+    float maxX = this.maxX - padding;
+    float maxY = curHeight + strHeight; 
+    
     fill(0);
     if (highlight) {
-      highlightCurLine(textWidth(text), minX, minY, strHeight, textWidth(text));
+      highlightCurLine(minX, minY, text);
     }
     text(text, minX, minY, maxX, maxY);
     fill(255);
   }
   
-  void rightJustify(boolean highlight, String text, float minX, float minY, float maxX, float maxY, float strHeight) {
+  void rightJustify(boolean highlight, String text, float curHeight) {
     fill(0);
-    minX = maxX - textWidth(text) - 5;
+    float minX = this.maxX - padding - textWidth(text) - 5;
+    float maxX = this.maxX - padding;
+    float minY = curHeight;
+    float maxY = curHeight + strHeight;
     
     //print("minX: " + minX + " maxX: " + maxX);
     if (highlight) {
-      highlightCurLine(textWidth(text), minX, minY, strHeight, textWidth(text));
+      highlightCurLine(minX, minY, text);
     }
     text(text, minX, minY, maxX, maxY);
     fill(255);
@@ -109,7 +134,7 @@ class MainScreen extends Screen{
     fill(255);
   }
   
-  void blinkBox(float minX, float minY, float strHeight) {
+  void blinkBox(float minX, float minY) {
     int speed = 30;
     float w = textWidth(".");
     stroke(255);
@@ -124,13 +149,13 @@ class MainScreen extends Screen{
     stroke(0);
   }
   
-  void leftOverFlow(float minX, float padding, float curHeight, float strHeight) {
+  void leftOverFlow(float minX, float curHeight) {
     textSize(smallFontSize);
     text("◀", minX, curHeight + strHeight-10);
     textSize(fontSize);
   }
   
-  void rightOverFlow(float maxX, float padding, float curHeight, float strHeight) {
+  void rightOverFlow(float maxX, float curHeight) {
     textSize(smallFontSize);
     text("▶", maxX - textWidth("▶"), curHeight + strHeight-10);
     textSize(fontSize);
@@ -158,9 +183,27 @@ class MainScreen extends Screen{
 
   }
   
+  void delete() {
+    int charToUpdate = curChar + selectedChar;
+    if (curLine == text.size()) {
+      if (charToUpdate != newLine.length()) {
+        newLine = newLine.substring(0, charToUpdate) + newLine.substring(charToUpdate+1);
+      }
+            
+      
+      //println(selectedChar);
+    }
+  }
+  
   void submitNewLine() {
     if (curLine != text.size()) {
       return;
+    }
+    if (newLine.length() == 0) {
+      if (text.size() == 0) {
+        return;
+      }
+      newLine = text.get(text.size()-2);
     }
     text.add(newLine);
     String result = calc.compute(newLine);
@@ -172,7 +215,7 @@ class MainScreen extends Screen{
     goDown();
   }
   
-  void display(float minX, float maxX, float minY, float maxY, float strHeight, float padding) {
+  void display() {
     int count = 1;
     float curHeight = minY + padding;
     while (count < maxLines && (topLine + count - 1) <= text.size()-1) {
@@ -203,10 +246,10 @@ class MainScreen extends Screen{
         }
         line = line.substring(startChar, startChar + maxCharsPerLine);
         if (leftOverFlow) {
-          leftOverFlow(minX, padding, curHeight, strHeight);
+          leftOverFlow(minX, curHeight);
         }
         if (rightOverFlow) {
-          rightOverFlow(maxX, padding, curHeight, strHeight);
+          rightOverFlow(maxX, curHeight);
         }
       }
       
@@ -216,11 +259,11 @@ class MainScreen extends Screen{
       if (topLine + count - 1 == curLine) highlight = true; 
       
       if (rightJustify) {
-        rightJustify(highlight, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight, strHeight);
+        rightJustify(highlight, line, curHeight);
         //print("rightJustify");
         dividingLine(minX + padding, maxX - padding, curHeight + strHeight + 3);
       } else {
-        leftJustify(highlight, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight, strHeight);
+        leftJustify(highlight, line, curHeight);
       }
       
       
@@ -247,19 +290,19 @@ class MainScreen extends Screen{
         line = line.substring(curChar, curChar + maxCharsPerLine);
         
         if (leftOverFlow) {
-          leftOverFlow(minX, padding, curHeight, strHeight);
+          leftOverFlow(minX, curHeight);
         }
         if (rightOverFlow) {
-          rightOverFlow(maxX, padding, curHeight, strHeight);
+          rightOverFlow(maxX, curHeight);
         }
       }
     
     if (curLine == text.size()) {
       float x;
       x = minX + padding + Math.min(selectedChar * textWidth("a"),textWidth(line));
-      blinkBox(x, curHeight, strHeight);
+      blinkBox(x, curHeight);
     }
-    leftJustify(false, line, minX + padding, curHeight, maxX - padding, curHeight + strHeight, strHeight);
+    leftJustify(false, line, curHeight);
     
     
   }
