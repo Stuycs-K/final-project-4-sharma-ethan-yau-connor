@@ -46,6 +46,26 @@ School Trip (ARML)
 
 Many changes to fix parenthesis interpretation regarding multiple sets of nested parenthesis, should work
 
+## Monday 6/3
+
+Fixed order of operations and parenthesis again, edited buttons
+
+## Tuesday 6/4
+
+Allowed for parsing of negative sign vs. negative number to work
+
+## Wednesday 6/5
+
+Made Error message for invalid inputs instead of just crashing, changed return type of compute to String
+
+## Thursday 6/6 
+
+Function to return set of points for graphing purposes, computes multiple at an interval
+
+## Friday - Sunday 6/7-6/9
+
+Trig functions working, constats (e and pi), button display changed to what they put on screen
+
 ## Connor
 
 ### date x
