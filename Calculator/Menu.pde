@@ -197,6 +197,20 @@ class MainScreen extends Screen{
   
   void submitNewLine() {
     if (curLine != text.size()) {
+      String tex = text.get(curLine);
+      if (tex.indexOf(TAG) == 0) {
+        tex = tex.substring(TAG.length());
+        
+      }
+      while (curLine != text.size()) {
+        goDown();
+      }
+      
+      for (int i = 0; i < tex.length(); i++) {
+        addToNewLine(tex.charAt(i));
+        //addToNewLine('a');
+      }
+      
       return;
     }
     if (newLine.length() == 0) {
