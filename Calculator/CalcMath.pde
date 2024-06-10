@@ -53,8 +53,8 @@ public class CalcMath{
               if(str.charAt(newindex) == ')'){
                 parenCount--;
               }
-              println("i " + i);
-              println("parenthesis " + parenCount);
+              //println("i " + i);
+             // println("parenthesis " + parenCount);
               if(newindex > i+3 && parenCount == 0){
               break;
               }
@@ -143,10 +143,24 @@ public class CalcMath{
   }
   }
   public void evalTrig(ArrayList<String> split){
+  int parenCount = 0;
   for(int i = 0; i < split.size(); i++){
     for(String trig : trigOpers){
-      if(split.get(i).contains(trig)){
-         split.set(i, computeTrig(trig, split.get(i)));
+      String str = split.get(i);
+      if(str.contains(trig)){
+        for(int j = 0; j < str.length(); j++){
+          if(str.charAt(j) == '('){
+            parenCount++;
+          }
+          if(str.charAt(j) == ')'){
+            parenCount--;
+          }
+          if(j > 3 && parenCount == 0){
+            j++;
+            split.set(i,split.get(i).replace(str.substring(0,j), computeTrig(trig, str.substring(0,j))));
+            break;
+          }
+        }
       }
     }
   }
@@ -154,12 +168,7 @@ public class CalcMath{
   
   public String computeTrig(String oper, String call){
     String inp;
-  if(call.charAt(call.length()-1) == ')'){
     inp = compute(call.substring(4,call.length()-1));
-  }
-  else{
-    inp = compute(call.substring(4,call.length()));
-  }
   try{
   if(oper.equals("sin")){
     return ""+(float)Math.sin(Double.parseDouble(inp));
@@ -194,13 +203,19 @@ public class CalcMath{
     int k = 0;
     for(int i = start; i < end; i++){
       if(split.get(i).contains("(")){
-        opens.add(Integer.valueOf(i));
-        k+=stringCount(split.get(i), '(');
+        int count = stringCount(split.get(i), '(');
+        for(int j = 0; j < count; j++){
+          opens.add(Integer.valueOf(i));
+        }
+        k+=count;
       }
       if(split.get(i).contains(")")){
-        k-= stringCount(split.get(i), ')');
+        int count2 = stringCount(split.get(i), ')');
+        k-= count2;
         if(k == 0){
+        for(int j = 0; j < count2; j++){
           closed.add(Integer.valueOf(i));
+        }
         }
       }
     }
