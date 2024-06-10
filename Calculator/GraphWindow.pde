@@ -68,6 +68,9 @@ class GraphWindow extends Screen {
   void submitNewLine(boolean goDown) {
     boolean notValid = false;
     notValid = !isFloat(fields.get(curKey));
+    if (fields.get(curKey).equals("")) {
+      fields.put(curKey, lastFields.get(curKey));
+    }
     notValid = Float.valueOf(fields.get("Xmin")) >= Float.valueOf(fields.get("Xmax"));
     notValid = Float.valueOf(fields.get("Ymin")) >= Float.valueOf(fields.get("Ymax"));
     
@@ -95,7 +98,18 @@ class GraphWindow extends Screen {
     return str.matches("[-+]?[0-9]*\\.?[0-9]+");
   }
   
-  void delete() {}
+  void delete() {
+    String line = fields.get(curKey);
+    if (curLine == text.size()) {
+      if (selectedChar != line.length()) {
+        fields.put(curKey, line.substring(0, selectedChar) + line.substring(selectedChar+1));
+      }
+            
+      
+      //println(selectedChar);
+    }
+  }
+  
   void display() {
     leftJustify("WINDOW", minY + padding);
     float curHeight = minY + padding + strHeight;
