@@ -49,7 +49,7 @@ class GraphWindow extends Screen {
     //Xmin Xmax Ymin Ymax self explanatory
     //Xscl Yscl determines where ticks are
     
-    String[] fieldValues = {"-3", "3", "1", "-10", "10", "1", "1", "0.075757575757576", "0.15151515151515"};
+    String[] fieldValues = {"-10", "10", "1", "-10", "10", "1", "1", "0.075757575757576", "0.15151515151515"};
     
     for (int i = 0; i < fieldsNames.length; i++) {
       fields.put(fieldsNames[i], fieldValues[i]);
@@ -68,8 +68,8 @@ class GraphWindow extends Screen {
   void submitNewLine(boolean goDown) {
     boolean notValid = false;
     notValid = !isFloat(fields.get(curKey));
-    notValid = Float.valueOf(fields.get("Xmin")) <= Float.valueOf(fields.get("Xmax"));
-    notValid = Float.valueOf(fields.get("Ymin")) <= Float.valueOf(fields.get("Ymax"));
+    notValid = Float.valueOf(fields.get("Xmin")) >= Float.valueOf(fields.get("Xmax"));
+    notValid = Float.valueOf(fields.get("Ymin")) >= Float.valueOf(fields.get("Ymax"));
     
     
     
