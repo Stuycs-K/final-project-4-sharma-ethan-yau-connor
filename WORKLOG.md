@@ -68,10 +68,74 @@ Trig functions working, constats (e and pi), button display changed to what they
 
 ## Connor
 
-### date x
+### Thursday 5/23
 
-info
+Class - created all the calculator classes
 
-### date y
+Home - changed screen class
 
-info
+### Friday 5/24
+
+Class - worked on fixes to Screen class
+
+Home - same
+
+### 5/24-27
+
+Home - worked on Menu (Main Screen) and Screen class
+
+### 5/28
+
+Class - worked on displaying for screen
+
+Home - begin functionality for Frame class
+
+### 5/29
+
+Class - worked on display function for Frame class, added more instance variables; Navigation on main screen
+
+Home - can add lines to mainscreen, scroll lines, and text overflow
+
+### 5/30
+
+Class - highlighting and selecting lines works.
+
+Home - created leftJustify function, move towards Tag system for rightJustified and leftJustified lines
+
+### 5/31 - 6/1
+
+Math Competition :\(
+
+### 6/2
+
+Home - added rightJustified text, added line between calculator entries, added blinkning box for selected character, right and left overflow arrows, submit new lines to main screen, fixed buttons, added up, down, left, right buttons, made buttons nicer and added operations and parentheses buttons.
+
+### 6/3
+
+Class - added decimal button
+
+Home - added delete functino to main screen
+
+### 6/4
+
+### 6/5
+
+Class - major refactoring in MainScreen class
+
+Home - continued refactoring
+
+### 6/6
+
+Class - more refactoring, added graphMenu class
+
+Home - added graphWindow menu and completed first iteration of graphing class
+
+### 6/7
+
+Class - Graphing improvements
+
+Home - Button refactoring
+
+### 6/8 - 6/9
+
+Home - added feature where you can bring down historical text, added Ans, added delete to window, fixed some graphing overflow bugs
