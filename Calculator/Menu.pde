@@ -2,6 +2,7 @@ class MainScreen extends Screen{
   CalcMath calc;
   String TAG = "tag";
   String newLine;
+  String ans;
   
   MainScreen(String name, int maxCharsPerLine, int maxLines, float minX, float maxX, float minY, float maxY, float strHeight, float padding, float textWidth) {
     this.name = name;
@@ -23,6 +24,7 @@ class MainScreen extends Screen{
     this.strHeight = strHeight;
     this.padding = padding;
     this.textWidth = textWidth;
+    this.ans = "0";
     
   }
   
@@ -197,6 +199,20 @@ class MainScreen extends Screen{
   
   void submitNewLine() {
     if (curLine != text.size()) {
+      String tex = text.get(curLine);
+      if (tex.indexOf(TAG) == 0) {
+        tex = tex.substring(TAG.length());
+        
+      }
+      while (curLine != text.size()) {
+        goDown();
+      }
+      
+      for (int i = 0; i < tex.length(); i++) {
+        addToNewLine(tex.charAt(i));
+        //addToNewLine('a');
+      }
+      
       return;
     }
     if (newLine.length() == 0) {
@@ -205,8 +221,20 @@ class MainScreen extends Screen{
       }
       newLine = text.get(text.size()-2);
     }
+    
+    String calcLine = newLine;
+    while (calcLine.indexOf("Ans") != -1) {
+      int i = calcLine.indexOf("Ans");
+      if (i+3 > calcLine.length()) {
+        calcLine = calcLine.substring(0, i) + ans;
+        return;
+      }
+      calcLine = calcLine.substring(0, i) + ans + calcLine.substring(i+3);
+      
+    }
     text.add(newLine);
-    String result = calc.compute(newLine);
+    String result = calc.compute(calcLine);
+    ans = result;
     text.add("tag" + result);
     newLine = "";
     curChar = 0;

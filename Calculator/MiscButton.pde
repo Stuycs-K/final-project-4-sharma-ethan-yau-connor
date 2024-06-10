@@ -23,7 +23,9 @@ class MiscButton extends Button {
       frame.delete();
     }
     if (name.equals("Ans")) {
-      
+      frame.updateNewLine('A');
+      frame.updateNewLine('n');
+      frame.updateNewLine('s');
     }
   }
 }

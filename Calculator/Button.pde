@@ -21,6 +21,7 @@ abstract class Button {
     fill(255);
     rect(x, y, x+Bwidth, y+Bheight, 5);
     fill(0);
-    text(disp, x + Bwidth*.8 - textWidth(disp), y + Bheight*0.8);
+    textSize(20);
+    text(disp, x + Bwidth*0.9 - textWidth(disp), y + Bheight*0.6);
   }
 }
