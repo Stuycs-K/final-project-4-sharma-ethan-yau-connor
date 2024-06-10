@@ -6,7 +6,7 @@ class Frame {
   {"","","x","↑",""},
   {"","","←","","→"},
   {"","","","↓","clear"},
-  {"sin","π","e","","^"},
+  {"sin","π","e","%","^"},
   {"cos","del","(",")","/"},
   {"tan","7","8","9","*"},
   {"csc","4","5","6","-"},
@@ -14,7 +14,20 @@ class Frame {
   {"cot","0",".","Ans","="},
   };
   
-  Set<String> numButtons = Set.of(".","0","1","2","3","4","5","6","7","8","9","+","-","*","/","(",")","^","x","sin(","cos(","tan(","csc(","sec(","cot(","π","e");
+  String[][] disp = {
+  {"main","win","gMenu","","graph"},
+  {"","","x","↑",""},
+  {"","","←","","→"},
+  {"","","","↓","clear"},
+  {"sin","π","e","%","^"},
+  {"cos","del","(",")","/"},
+  {"tan","7","8","9","*"},
+  {"csc","4","5","6","-"},
+  {"sec","1","2","3","+"},
+  {"cot","0",".","Ans","="},
+  };
+  
+  Set<String> numButtons = Set.of(".","0","1","2","3","4","5","6","7","8","9","+","-","*","/","(",")","^","x","sin(","cos(","tan(","csc(","sec(","cot(","π","e", "%");
   Set<String> navButtons = Set.of("↑","←", "→", "↓", "main", "window", "graphMenu", "graph");
   Set<String> miscButtons = Set.of("clear", "=", "Ans","del");
   
@@ -56,7 +69,7 @@ class Frame {
     this.screenMinY = screenMinY;
     screenMaxX = width - screenMinX;
     screenMaxY = screenMinY + screenHeight;
-    buttonHeight = 35;
+    buttonHeight = 40;
     buttonWidth = 70;
 
     newMainScreen("main");
@@ -79,23 +92,26 @@ class Frame {
   
   void initializeButtons() {
     float xSpacing = 90;
-    float ySpacing = 50;
-    String name;
+    float ySpacing = 55;
+    float xOffset = 30;
+    float yOffset = 20;
+    String name, dispName;
     for (int i = 0; i < buttonLayout.length; i++) {
       for (int j = 0; j < buttonLayout[i].length; j++) {
         name = buttonLayout[i][j];
+        dispName = disp[i][j];
         if (name.equals("")) continue;
         if (numButtons.contains(name)) {
-          buttons.add(new NumButton(buttonHeight, buttonWidth, 20 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
+          buttons.add(new NumButton(buttonHeight, buttonWidth, xOffset + xSpacing*j, screenMaxY + yOffset + ySpacing*i, name, dispName));
         }
         if(numButtons.contains(name + "(")){
-          buttons.add(new NumButton(buttonHeight, buttonWidth, 20 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name+"(",name));
+          buttons.add(new NumButton(buttonHeight, buttonWidth, xOffset + xSpacing*j, screenMaxY + yOffset + ySpacing*i, name+"(",name));
         }
         else if (miscButtons.contains(name)) {
-          buttons.add(new MiscButton(buttonHeight, buttonWidth, 20 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
+          buttons.add(new MiscButton(buttonHeight, buttonWidth, xOffset + xSpacing*j, screenMaxY + yOffset + ySpacing*i, name, dispName));
         }
         else if (navButtons.contains(name)) {
-          buttons.add(new NavButton(buttonHeight, buttonWidth, 20 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
+          buttons.add(new NavButton(buttonHeight, buttonWidth, xOffset + xSpacing*j, screenMaxY + yOffset + ySpacing*i, name, dispName));
         }
         
       }
