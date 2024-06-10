@@ -6,17 +6,17 @@ class Frame {
   {"","","x","↑",""},
   {"","","←","","→"},
   {"","","","↓","clear"},
-  {"","","","","^"},
-  {"","","(",")","/"},
-  {"","7","8","9","*"},
-  {"","4","5","6","-"},
-  {"","1","2","3","+"},
-  {"","0",".","","="},
+  {"sin","π","e","","^"},
+  {"cos","del","(",")","/"},
+  {"tan","7","8","9","*"},
+  {"csc","4","5","6","-"},
+  {"sec","1","2","3","+"},
+  {"cot","0",".","Ans","="},
   };
   
-  Set<String> numButtons = Set.of(".","0","1","2","3","4","5","6","7","8","9","+","-","*","/","(",")","^","x");
+  Set<String> numButtons = Set.of(".","0","1","2","3","4","5","6","7","8","9","+","-","*","/","(",")","^","x","sin(","cos(","tan(","csc(","sec(","cot(","π","e");
   Set<String> navButtons = Set.of("↑","←", "→", "↓", "main", "window", "graphMenu", "graph");
-  Set<String> miscButtons = Set.of("clear", "=");
+  Set<String> miscButtons = Set.of("clear", "=", "Ans","del");
   
   ArrayList<Button> buttons = new ArrayList<Button>();
   Screen curScreen;
@@ -40,13 +40,18 @@ class Frame {
     screens = new HashMap<String, Screen>();
     
     //stuff for font
-    font = createFont("Monospaced", 32);
+    
+    float weight = 32;
+    if (OS.equals("linux")) {
+      weight = 28;
+    }
+    font = createFont("Monospaced", weight);
     textFont(font);
     strAscent = textAscent();
     strDescent = textDescent();
     strHeight = strAscent + strDescent;
     padding = 10;
-    maxCharsPerLine = (int) Math.floor((width - 2*screenMinX - 2*padding)/textWidth("a"));
+    maxCharsPerLine = (int) Math.floor((width - 2*screenMinX - 2*padding)/textWidth("a")) - 1;
     this.screenMinX = screenMinX;
     this.screenMinY = screenMinY;
     screenMaxX = width - screenMinX;
@@ -82,6 +87,9 @@ class Frame {
         if (name.equals("")) continue;
         if (numButtons.contains(name)) {
           buttons.add(new NumButton(buttonHeight, buttonWidth, 20 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
+        }
+        if(numButtons.contains(name + "(")){
+          buttons.add(new NumButton(buttonHeight, buttonWidth, 20 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name+"(",name));
         }
         else if (miscButtons.contains(name)) {
           buttons.add(new MiscButton(buttonHeight, buttonWidth, 20 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
@@ -158,11 +166,20 @@ class Frame {
   void display() {
     fill(255);
     textFont(font);
-    
+    noStroke();
+    fill(204);
+    rect(0, 0, width, screenMinY);
+    rect(0, 0, screenMinX, screenMaxY+20);
+    rect(screenMaxX, 0, width, screenMaxY);
+    rect(0, screenMaxY, width, screenMaxY+20);
+    fill(255);
     if (curScreen.getName().equals("graph")) {
       
       noFill();
     }
+    
+    
+    stroke(0);
     rect(screenMinX, screenMinY, screenMaxX, screenMaxY);
     curScreen.display();
     for (Button button : buttons) {

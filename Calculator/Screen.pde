@@ -46,6 +46,7 @@ abstract class Screen {
   }
   
   void addToNewLine(char c) {
+    if (text == null) return;
     if (curLine == text.size()) {
       newLine += c;
     }
