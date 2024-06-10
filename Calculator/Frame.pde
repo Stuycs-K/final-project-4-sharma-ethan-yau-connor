@@ -187,7 +187,7 @@ class Frame {
     rect(0, 0, width, screenMinY);
     rect(0, 0, screenMinX, screenMaxY+20);
     rect(screenMaxX, 0, width, screenMaxY);
-    rect(0, screenMaxY, width, screenMaxY+20);
+    rect(0, screenMaxY, width, height);
     fill(255);
     if (curScreen.getName().equals("graph")) {
       
