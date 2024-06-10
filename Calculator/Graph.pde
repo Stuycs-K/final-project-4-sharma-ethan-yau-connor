@@ -160,7 +160,10 @@ class Graph extends Screen {
         if (y < gYmin) y = gYmin - 5;
         if (y > gYmin) y = gYmax + 5;
         
-        line(last[0], last[1], scaleX(x), scaleY(y));
+        if (Math.abs(last[1] - scaleY(y)) < maxY - minY) {
+          line(last[0], last[1], scaleX(x), scaleY(y));
+        }
+        
         last = new float[] {scaleX(x), scaleY(y)}; 
         
         continue;
@@ -171,8 +174,10 @@ class Graph extends Screen {
       //fill(0);
       //rect(x-1, y-1, x+1, y+1);
       
+      if (Math.abs(last[1] - y) < maxY - minY) {
+        line(last[0], last[1], x, y);
+      }
       
-      line(last[0], last[1], x, y);
       last = new float[]{x,y};
       
       //text(Arrays.toString(point), x, y);
