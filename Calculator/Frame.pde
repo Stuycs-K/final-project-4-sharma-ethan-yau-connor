@@ -5,7 +5,7 @@ class Frame {
   {"main","window","graphMenu","","graph"},
   {"","","x","↑",""},
   {"","","←","","→"},
-  {"","","","↓","clear"},
+  {"log","","","↓","clear"},
   {"sin","π","e","%","^"},
   {"cos","del","(",")","/"},
   {"tan","7","8","9","*"},
@@ -18,7 +18,7 @@ class Frame {
   {"main","win","gMenu","","graph"},
   {"","","x","↑",""},
   {"","","←","","→"},
-  {"","","","↓","clear"},
+  {"log","","","↓","clear"},
   {"sin","π","e","%","^"},
   {"cos","del","(",")","/"},
   {"tan","7","8","9","*"},
@@ -27,7 +27,7 @@ class Frame {
   {"cot","0",".","Ans","="},
   };
   
-  Set<String> numButtons = Set.of(".","0","1","2","3","4","5","6","7","8","9","+","-","*","/","(",")","^","x","sin(","cos(","tan(","csc(","sec(","cot(","π","e", "%");
+  Set<String> numButtons = Set.of(".","0","1","2","3","4","5","6","7","8","9","+","-","*","/","(",")","^","x","sin(","cos(","tan(","csc(","sec(","cot(","π","e", "%", "log(");
   Set<String> navButtons = Set.of("↑","←", "→", "↓", "main", "window", "graphMenu", "graph");
   Set<String> miscButtons = Set.of("clear", "=", "Ans","del");
   

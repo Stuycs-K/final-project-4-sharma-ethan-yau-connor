@@ -1,6 +1,6 @@
 public class CalcMath{
   char[] basicOpers = {'^', '*', '/', '%', '+', '-'};
-  String[] trigOpers = {"sin", "cos", "tan", "csc", "sec", "cot"};
+  String[] trigOpers = {"sin", "cos", "tan", "csc", "sec", "cot", "log"};
   char[][] opersOrdered = {{'^'}, {'*', '/', '%'}, {'+', '-'}};
   ArrayList<Integer> starts = new ArrayList<Integer>();
   ArrayList<Integer> ends = new ArrayList<Integer>();
@@ -84,7 +84,7 @@ public class CalcMath{
       }
     }
   splitted.add(str.substring(n,str.length()));
-  println(splitted);
+  //println(splitted);
   return splitted;
   }
   public boolean checkNegative(char prev){
@@ -112,7 +112,7 @@ public class CalcMath{
     if(end > split.size()){
       end = split.size();
     }
-    println(split);
+    //println(split);
     pemdas(split);
     if(split.size() > 1){
     return "Error";
@@ -178,6 +178,9 @@ public class CalcMath{
   }
   if(oper.equals("tan")){
     return ""+(float)Math.tan(Double.parseDouble(inp));
+  }
+  if(oper.equals("log")){
+    return ""+(float)Math.log(Double.parseDouble(inp));
   }
   if(oper.equals("csc")){
     return ""+ 1 / (float)Math.sin(Double.parseDouble(inp));
@@ -263,7 +266,7 @@ public class CalcMath{
   split.set(index-1,"" + res);
   split.remove(index);
   split.remove(index);
-  println(split);
+  //println(split);
   return ""+res;
  }
  
