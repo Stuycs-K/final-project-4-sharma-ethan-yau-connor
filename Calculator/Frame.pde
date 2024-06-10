@@ -6,17 +6,17 @@ class Frame {
   {"","","x","↑",""},
   {"","","←","","→"},
   {"","","","↓","clear"},
-  {"","","","","^"},
-  {"","","(",")","/"},
-  {"","7","8","9","*"},
-  {"","4","5","6","-"},
-  {"","1","2","3","+"},
-  {"","0",".","","="},
+  {"sin","π","e","","^"},
+  {"cos","del","(",")","/"},
+  {"tan","7","8","9","*"},
+  {"csc","4","5","6","-"},
+  {"sec","1","2","3","+"},
+  {"cot","0",".","Ans","="},
   };
   
-  Set<String> numButtons = Set.of(".","0","1","2","3","4","5","6","7","8","9","+","-","*","/","(",")","^","x");
+  Set<String> numButtons = Set.of(".","0","1","2","3","4","5","6","7","8","9","+","-","*","/","(",")","^","x","sin(","cos(","tan(","csc(","sec(","cot(","π","e");
   Set<String> navButtons = Set.of("↑","←", "→", "↓", "main", "window", "graphMenu", "graph");
-  Set<String> miscButtons = Set.of("clear", "=");
+  Set<String> miscButtons = Set.of("clear", "=", "Ans","del");
   
   ArrayList<Button> buttons = new ArrayList<Button>();
   Screen curScreen;
@@ -87,6 +87,9 @@ class Frame {
         if (name.equals("")) continue;
         if (numButtons.contains(name)) {
           buttons.add(new NumButton(buttonHeight, buttonWidth, 20 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
+        }
+        if(numButtons.contains(name + "(")){
+          buttons.add(new NumButton(buttonHeight, buttonWidth, 20 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name+"(",name));
         }
         else if (miscButtons.contains(name)) {
           buttons.add(new MiscButton(buttonHeight, buttonWidth, 20 + xSpacing*j, screenMaxY + 20 + ySpacing*i, name));
