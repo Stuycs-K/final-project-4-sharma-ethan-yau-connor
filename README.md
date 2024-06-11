@@ -14,6 +14,8 @@ Type any calculation into the menu and watch it calculate. You must close all yo
 
 **Note**. There is NO implicit multiplication on this calculator. So, an input of 5(4) would not work, and instead you would need to type 5\*4 or 5\*(4).
 
+**Major Bug** (discovered when presenting) Lines after the first don't show up. Seems to work as intended on windows but not linux.
+
 ## Project Demonstration Video
 
 https://drive.google.com/file/d/1gD0cv-VGu6tSN3j0b9Cxo3TlhOylNal4/view?usp=sharing
